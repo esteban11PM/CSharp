@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="332a317072944d1c882224ec79489401" Name="Diagram1" ZoomLevel="72" >
+        <EntityTypeShape EntityType="DbModel.Role" Width="1.5" PointX="0.625" PointY="4.5" FillColor="192, 192, 255" />
+        <EntityTypeShape EntityType="DbModel.User" Width="1.5" PointX="3.375" PointY="1.5" IsExpanded="true" FillColor="192, 192, 255" />
+        <EntityTypeShape EntityType="DbModel.Person" Width="1.5" PointX="5.625" PointY="1.25" FillColor="192, 192, 255" />
+        <EntityTypeShape EntityType="DbModel.Form" Width="1.5" PointX="5.75" PointY="4.875" FillColor="192, 192, 255" />
+        <EntityTypeShape EntityType="DbModel.Module" Width="1.5" PointX="9.875" PointY="5" FillColor="192, 192, 255" />
+        <EntityTypeShape EntityType="DbModel.AuditLog" Width="1.5" PointX="7.875" PointY="1.375" FillColor="192, 192, 255" />
+        <AssociationConnector Association="DbModel.UserPerson" />
+        <EntityTypeShape EntityType="DbModel.UserRole" Width="1.5" PointX="0.5" PointY="2.625" FillColor="192, 192, 255" />
+        <EntityTypeShape EntityType="DbModel.RoleFormPermission" Width="2" PointX="3.125" PointY="4.875" FillColor="192, 192, 255" />
+        <AssociationConnector Association="DbModel.RoleModuleRole" />
+        <AssociationConnector Association="DbModel.UserRoleRole" />
+        <AssociationConnector Association="DbModel.UserRoleUser" />
+        <EntityTypeShape EntityType="DbModel.Permission" Width="1.5" PointX="3.75" PointY="7.125" FillColor="192, 192, 255" />
+        <AssociationConnector Association="DbModel.RoleModulePermission" />
+        <EntityTypeShape EntityType="DbModel.FormModule" Width="1.5" PointX="7.875" PointY="4.875" FillColor="192, 192, 255" />
+        <AssociationConnector Association="DbModel.FormModuleForm" />
+        <AssociationConnector Association="DbModel.FormModuleModule" />
+        <AssociationConnector Association="DbModel.RoleFormPermissionForm" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

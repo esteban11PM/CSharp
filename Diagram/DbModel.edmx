@@ -1,0 +1,226 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl" Namespace="DbModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005">
+        <EntityContainer Name="DbModelTargetContainer" >
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="DbModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="DbModelContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Roles" EntityType="DbModel.Role" />
+          <EntitySet Name="Users" EntityType="DbModel.User" />
+          <EntitySet Name="People" EntityType="DbModel.Person" />
+          <EntitySet Name="Forms" EntityType="DbModel.Form" />
+          <EntitySet Name="Models" EntityType="DbModel.Module" />
+          <AssociationSet Name="UserPerson" Association="DbModel.UserPerson">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Person" EntitySet="People" />
+          </AssociationSet>
+          <EntitySet Name="UserRoles" EntityType="DbModel.UserRole" />
+          <EntitySet Name="RoleFormPermissionSet" EntityType="DbModel.RoleFormPermission" />
+          <AssociationSet Name="RoleModuleRole" Association="DbModel.RoleModuleRole">
+            <End Role="RoleModule" EntitySet="RoleFormPermissionSet" />
+            <End Role="Role" EntitySet="Roles" />
+          </AssociationSet>
+          <AssociationSet Name="UserRoleRole" Association="DbModel.UserRoleRole">
+            <End Role="UserRole" EntitySet="UserRoles" />
+            <End Role="Role" EntitySet="Roles" />
+          </AssociationSet>
+          <AssociationSet Name="UserRoleUser" Association="DbModel.UserRoleUser">
+            <End Role="UserRole" EntitySet="UserRoles" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <EntitySet Name="Permits" EntityType="DbModel.Permission" />
+          <AssociationSet Name="RoleModulePermission" Association="DbModel.RoleModulePermission">
+            <End Role="RoleModule" EntitySet="RoleFormPermissionSet" />
+            <End Role="Permission" EntitySet="Permits" />
+          </AssociationSet>
+          <EntitySet Name="FormsModules" EntityType="DbModel.FormModule" />
+          <AssociationSet Name="FormModuleForm" Association="DbModel.FormModuleForm">
+            <End Role="FormModule" EntitySet="FormsModules" />
+            <End Role="Form" EntitySet="Forms" />
+          </AssociationSet>
+          <AssociationSet Name="FormModuleModule" Association="DbModel.FormModuleModule">
+            <End Role="FormModule" EntitySet="FormsModules" />
+            <End Role="Module" EntitySet="Models" />
+          </AssociationSet>
+          <EntitySet Name="AuditLogSet" EntityType="DbModel.AuditLog" />
+          <AssociationSet Name="RoleFormPermissionForm" Association="DbModel.RoleFormPermissionForm">
+            <End Role="RoleFormPermission" EntitySet="RoleFormPermissionSet" />
+            <End Role="Form" EntitySet="Forms" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" />
+          <NavigationProperty Name="RoleModule" Relationship="DbModel.RoleModuleRole" FromRole="Role" ToRole="RoleModule" />
+          <NavigationProperty Name="UserRole" Relationship="DbModel.UserRoleRole" FromRole="Role" ToRole="UserRole" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Username" Type="String" Nullable="false" />
+          <Property Name="Password" Type="String" Nullable="false" />
+          <NavigationProperty Name="PersonId" Relationship="DbModel.UserPerson" FromRole="User" ToRole="Person" />
+          <NavigationProperty Name="UserRole" Relationship="DbModel.UserRoleUser" FromRole="User" ToRole="UserRole" />
+          <Property Name="state" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <Property Name="LastName" Type="String" Nullable="false" />
+          <Property Name="PhoneNumber" Type="String" Nullable="false" />
+          <Property Name="Email" Type="String" Nullable="false" />
+          <Property Name="Address" Type="String" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="DbModel.UserPerson" FromRole="Person" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Form">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" />
+          <NavigationProperty Name="FormModule" Relationship="DbModel.FormModuleForm" FromRole="Form" ToRole="FormModule" />
+          <NavigationProperty Name="RoleFormPermission" Relationship="DbModel.RoleFormPermissionForm" FromRole="Form" ToRole="RoleFormPermission" />
+          <Property Name="RoleFormPermissionId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Module">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" />
+          <NavigationProperty Name="FormModule" Relationship="DbModel.FormModuleModule" FromRole="Module" ToRole="FormModule" />
+        </EntityType>
+        <EntityType Name="AuditLog">
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TableName" Type="String" Nullable="false" />
+          <Property Name="AffectedId" Type="Int32" Nullable="false" />
+          <Property Name="PropertyName" Type="String" Nullable="false" />
+          <Property Name="OldValue" Type="String" Nullable="false" />
+          <Property Name="NewValue" Type="String" Nullable="false" />
+          <Property Name="Action" Type="String" Nullable="false" />
+          <Property Name="Timestamp" Type="DateTime" Nullable="false" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="UserPerson">
+          <End Type="DbModel.User" Role="User" Multiplicity="1" />
+          <End Type="DbModel.Person" Role="Person" Multiplicity="1" />
+        </Association>
+        <EntityType Name="UserRole">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="RoleId" Relationship="DbModel.UserRoleRole" FromRole="UserRole" ToRole="Role" />
+          <NavigationProperty Name="UserId" Relationship="DbModel.UserRoleUser" FromRole="UserRole" ToRole="User" />
+        </EntityType>
+        <EntityType Name="RoleFormPermission">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="RoleId" Relationship="DbModel.RoleModuleRole" FromRole="RoleModule" ToRole="Role" />
+          <NavigationProperty Name="PermissionId" Relationship="DbModel.RoleModulePermission" FromRole="RoleModule" ToRole="Permission" />
+          <NavigationProperty Name="Form" Relationship="DbModel.RoleFormPermissionForm" FromRole="RoleFormPermission" ToRole="Form" />
+        </EntityType>
+        <Association Name="RoleModuleRole">
+          <End Type="DbModel.RoleFormPermission" Role="RoleModule" Multiplicity="*" />
+          <End Type="DbModel.Role" Role="Role" Multiplicity="1" />
+        </Association>
+        <Association Name="UserRoleRole">
+          <End Type="DbModel.UserRole" Role="UserRole" Multiplicity="*" />
+          <End Type="DbModel.Role" Role="Role" Multiplicity="1" />
+        </Association>
+        <Association Name="UserRoleUser">
+          <End Type="DbModel.UserRole" Role="UserRole" Multiplicity="*" />
+          <End Type="DbModel.User" Role="User" Multiplicity="1" />
+        </Association>
+        <EntityType Name="Permission">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <NavigationProperty Name="RoleModule" Relationship="DbModel.RoleModulePermission" FromRole="Permission" ToRole="RoleModule" />
+        </EntityType>
+        <Association Name="RoleModulePermission">
+          <End Type="DbModel.RoleFormPermission" Role="RoleModule" Multiplicity="*" />
+          <End Type="DbModel.Permission" Role="Permission" Multiplicity="1" />
+        </Association>
+        <EntityType Name="FormModule">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Form" Relationship="DbModel.FormModuleForm" FromRole="FormModule" ToRole="Form" />
+          <NavigationProperty Name="Module" Relationship="DbModel.FormModuleModule" FromRole="FormModule" ToRole="Module" />
+        </EntityType>
+        <Association Name="FormModuleForm">
+          <End Type="DbModel.FormModule" Role="FormModule" Multiplicity="*" />
+          <End Type="DbModel.Form" Role="Form" Multiplicity="1" />
+        </Association>
+        <Association Name="FormModuleModule">
+          <End Type="DbModel.FormModule" Role="FormModule" Multiplicity="*" />
+          <End Type="DbModel.Module" Role="Module" Multiplicity="1" />
+        </Association>
+        <Association Name="RoleFormPermissionForm">
+          <End Type="DbModel.RoleFormPermission" Role="RoleFormPermission" Multiplicity="1" />
+          <End Type="DbModel.Form" Role="Form" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RoleFormPermission">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Form">
+              <PropertyRef Name="RoleFormPermissionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs" Space="C-S">
+        <Alias Key="Model" Value="DbModel" />
+        <Alias Key="Target" Value="DbModel.Store" />
+        <EntityContainerMapping CdmEntityContainer="DbModelContainer" StorageEntityContainer="DbModelTargetContainer">
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
