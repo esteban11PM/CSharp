@@ -28,16 +28,18 @@ namespace Data
 
     // CONSULTA POR MEDIO DE LINQ
         // consulta general
-        public async Task<IEnumerable<User>> GetAllAsync()
+        public async Task<List<User>> GetAllUsersAsync()
         {
-            return await _context.Set<User>().ToListAsync();
+            return await _context.User
+                .Include(user => user.Person) // INNER JOIN implícito
+                .ToListAsync();
         }
         // consulta por ID
         public async Task<User?> GetByIdAsync(int id)
         {
             try
             {
-                return await _context.Set<User>().FindAsync(id);
+                return await _context.User.Include(user => user.Person).FirstOrDefaultAsync(user => user.Id == id);
             }
             catch (Exception ex)
             {
@@ -96,22 +98,24 @@ namespace Data
 
     //CONSULTA POR MEDIO DE SQL
         // consulta general
-        public async Task<IEnumerable<User>> GetAllAsyncSQL()
+        public async Task<IEnumerable<UserDTO>> GetAllAsyncSQL()
         {
             string query = @"
                 SELECT 
                     u.Id, 
                     u.Username, 
-                    u.State, 
-                    p.Id AS PersonId, p.Name AS PersonName
-                FROM User u
-                INNER JOIN Person p ON u.PersonId = p.Id";
+                    u.Active AS Status, 
+                    u.PersonId, 
+                    p.Name + ' ' + p.LastName as PersonName
+                FROM [User] u
+                INNER JOIN Person p 
+                ON u.PersonId = p.Id";
 
-            return await _dapperConnection.QueryAsync<User>(query);
+            return await _dapperConnection.QueryAsync<UserDTO>(query);
         }
 
         // consulta por ID
-        public async Task<User?> GetByIdAsyncSQL(int id)
+        public async Task<UserDTO?> GetByIdAsyncSQL(int id)
         {
             try
             {
@@ -125,7 +129,7 @@ namespace Data
                     INNER JOIN Person p ON u.PersonId = p.Id
                     WHERE u.Id = @Id";
 
-                return await _dapperConnection.QueryFirstOrDefaultAsync<User>(query, new { Id = id });
+                return await _dapperConnection.QueryFirstOrDefaultAsync<UserDTO>(query, new { Id = id });
             }
             catch (Exception ex)
             {
@@ -139,13 +143,16 @@ namespace Data
         {
             try
             {
-                string sql = @"INSERT INTO User (Username, Password, State)
-                                VALUES(@UserName, @Password, @State);
-                                SELECT CAST(SCOPE_IDENTITY() as int)";
+                string sql = @"INSERT INTO [User] 
+                            (Username, Password, State ,PersonId) 
+                            VALUES 
+                            (@Username, @Password, @State ,@PersonId);
+                            SELECT CAST(SCOPE_IDENTITY() AS int);";
                 return await _dapperConnection.ExecuteScalarAsync<int>(sql, new{
                     user.Username,
                     user.Password,
-                    user.State
+                    user.State,
+                    user.PersonId
                 });
             }
             catch (Exception ex)

@@ -94,7 +94,7 @@ namespace Web.Controllers
         [ProducesResponseType(typeof(RolFormPermissionDTO), 201)]
         [ProducesResponseType(400)]
         [ProducesResponseType(500)]
-        public async Task<IActionResult> CreateRolFormPermission([FromBody] RolFormPermissionDTO dto)
+        public async Task<IActionResult> CreateRolFormPermission([FromBody] RolFormPermissionCreateDTO dto)
         {
             try
             {
@@ -124,7 +124,7 @@ namespace Web.Controllers
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
         [ProducesResponseType(500)]
-        public async Task<IActionResult> UpdateRolFormPermission(int id, [FromBody] RolFormPermissionDTO dto)
+        public async Task<IActionResult> UpdateRolFormPermission(int id, [FromBody] RolFormPermissionCreateDTO dto)
         {
             try
             {
@@ -163,7 +163,7 @@ namespace Web.Controllers
             try
             {
                 await _rolFormPermissionBusiness.DeleteRolFormPermissionAsync(id);
-                return NoContent();
+                return Ok(new {message = "Se eliminó el registro"});
             }
             catch (ValidationException ex)
             {

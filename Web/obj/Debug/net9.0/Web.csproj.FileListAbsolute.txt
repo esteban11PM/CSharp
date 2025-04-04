@@ -93,3 +93,4 @@
 /Users/estebanp11/SENA/SENA_2025/C#/ModelSecurity/Web/obj/Debug/net9.0/Web.pdb
 /Users/estebanp11/SENA/SENA_2025/C#/ModelSecurity/Web/obj/Debug/net9.0/Web.genruntimeconfig.cache
 /Users/estebanp11/SENA/SENA_2025/C#/ModelSecurity/Web/obj/Debug/net9.0/ref/Web.dll
+/Users/estebanp11/SENA/SENA_2025/C#/ModelSecurity/Web/obj/Debug/net9.0/Web.sourcelink.json

@@ -43,12 +43,12 @@ namespace Web.Controllers
         {
             try
             {
-                var users = await _userBusiness.GetAllUsersAsync();
-                return Ok(users);
+                var Users = await _userBusiness.GetAllUsersAsync();
+                return Ok(Users);
             }
-            catch (ExternalServiceException ex)
+            catch (Exception ex)
             {
-                _logger.LogError(ex, "Error al obtener usuarios");
+                _logger.LogError(ex, "Error al obtener los users");
                 return StatusCode(500, new { message = ex.Message });
             }
         }
@@ -71,23 +71,24 @@ namespace Web.Controllers
         {
             try
             {
-                var user = await _userBusiness.GetUserByIdAsync(id);
-                return Ok(user);
+                var User = await _userBusiness.GetUserByIdAsync(id);
+                return Ok(User);
             }
             catch (ValidationException ex)
             {
-                _logger.LogWarning(ex, "Validación fallida para el usuario con ID: {UserId}", id);
+                _logger.LogWarning(ex, "Validacion fallida para user con ID: {UserId}", id);
                 return BadRequest(new { message = ex.Message });
             }
             catch (EntityNotFoundException ex)
             {
-                _logger.LogInformation(ex, "Usuario no encontrado con ID: {UserId}", id);
+
+                _logger.LogInformation(ex, "User no encontrado con ID: {UserId}", id);
                 return NotFound(new { message = ex.Message });
             }
             catch (ExternalServiceException ex)
             {
-                _logger.LogError(ex, "Error al obtener usuario con ID: {UserId}", id);
-                return StatusCode(500, new { message = ex.Message });
+                _logger.LogError(ex, "Error al obtener el user con ID: {UserId}", id);
+                throw;
             }
         }
 
@@ -103,21 +104,21 @@ namespace Web.Controllers
         [ProducesResponseType(typeof(UserDTO), 201)]
         [ProducesResponseType(400)]
         [ProducesResponseType(500)]
-        public async Task<IActionResult> CreateUser([FromBody] UserDTO userDto)
+        public async Task<IActionResult> CreateUser([FromBody] UserCreateDTO userCreateDTO)
         {
             try
             {
-                var createdUser = await _userBusiness.CreateUserAsync(userDto);
+                var createdUser = await _userBusiness.CreateUserAsync(userCreateDTO);
                 return CreatedAtAction(nameof(GetUserById), new { id = createdUser.Id }, createdUser);
             }
             catch (ValidationException ex)
             {
-                _logger.LogWarning(ex, "Validación fallida al crear usuario");
+                _logger.LogWarning(ex, "Validacion fallida al crear el user");
                 return BadRequest(new { message = ex.Message });
             }
             catch (ExternalServiceException ex)
             {
-                _logger.LogError(ex, "Error al crear usuario");
+                _logger.LogError(ex, "Error al crear el user");
                 return StatusCode(500, new { message = ex.Message });
             }
         }
@@ -135,26 +136,26 @@ namespace Web.Controllers
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
         [ProducesResponseType(500)]
-        public async Task<IActionResult> UpdateUser(int id, [FromBody] UserDTO userDto)
+        public async Task<IActionResult> UpdateUser([FromBody] UserCreateDTO userDto)
         {
             try
             {
-                var updatedUser = await _userBusiness.UpdateUserAsync(userDto); // El id no esta definido en el metodo del business.
+                var updatedUser = await _userBusiness.UpdateUserAsync(userDto);
                 return Ok(updatedUser);
             }
             catch (ValidationException ex)
             {
-                _logger.LogWarning(ex, "Validación fallida al actualizar usuario con ID: {UserId}", id);
+                _logger.LogWarning(ex, "Validación fallida al actualizar usuario con ID: {UserId}", userDto.Id);
                 return BadRequest(new { message = ex.Message });
             }
             catch (EntityNotFoundException ex)
             {
-                _logger.LogInformation(ex, "Usuario no encontrado con ID: {UserId}", id);
+                _logger.LogInformation(ex, "Usuario no encontrado con ID: {UserId}", userDto.Id);
                 return NotFound(new { message = ex.Message });
             }
             catch (ExternalServiceException ex)
             {
-                _logger.LogError(ex, "Error al actualizar usuario con ID: {UserId}", id);
+                _logger.LogError(ex, "Error al actualizar usuario con ID: {UserId}", userDto.Id);
                 return StatusCode(500, new { message = ex.Message });
             }
         }
@@ -163,7 +164,11 @@ namespace Web.Controllers
         /// Elimina un usuario existente por su ID.
         /// </summary>
         /// <param name="id">ID del usuario a eliminar.</param>
-        /// <returns>Resultado de la eliminación.</returns>\n        /// <response code="204">El usuario se eliminó correctamente.</response>\n        /// <response code="400">ID no válido.</response>\n        /// <response code="404">Usuario no encontrado.</response>\n        /// <response code="500">Error interno del servidor.</response>
+        /// <returns>Resultado de la eliminación.</returns>\n       
+        /// <response code="204">El usuario se eliminó correctamente.</response>\n        
+        /// <response code="400">ID no válido.</response>\n        
+        /// <response code="404">Usuario no encontrado.</response>\n        
+        /// <response code="500">Error interno del servidor.</response>
         [HttpDelete("{id}")]
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
@@ -174,7 +179,7 @@ namespace Web.Controllers
             try
             {
                 await _userBusiness.DeleteUserAsync(id);
-                return NoContent();
+                return Ok(new {message = "Se eliminó el registro"});
             }
             catch (ValidationException ex)
             {

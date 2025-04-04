@@ -13,3 +13,4 @@
 /Users/estebanp11/SENA/SENA_2025/C#/ModelSecurity/Data/obj/Debug/net8.0/refint/Data.dll
 /Users/estebanp11/SENA/SENA_2025/C#/ModelSecurity/Data/obj/Debug/net8.0/Data.pdb
 /Users/estebanp11/SENA/SENA_2025/C#/ModelSecurity/Data/obj/Debug/net8.0/ref/Data.dll
+/Users/estebanp11/SENA/SENA_2025/C#/ModelSecurity/Data/obj/Debug/net8.0/Data.sourcelink.json

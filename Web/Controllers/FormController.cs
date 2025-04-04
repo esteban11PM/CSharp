@@ -137,7 +137,7 @@ namespace Web.Controllers
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
         [ProducesResponseType(500)]
-        public async Task<IActionResult> UpdateForm(int id, [FromBody] FormDTO formDto)
+        public async Task<IActionResult> UpdateForm([FromBody] FormDTO formDto)
         {
             try
             {
@@ -146,17 +146,17 @@ namespace Web.Controllers
             }
             catch (ValidationException ex)
             {
-                _logger.LogWarning(ex, "Validación fallida al actualizar formulario con ID: {FormId}", id);
+                _logger.LogWarning(ex, "Validación fallida al actualizar formulario con ID: {FormId}", formDto.Id);
                 return BadRequest(new { message = ex.Message });
             }
             catch (EntityNotFoundException ex)
             {
-                _logger.LogInformation(ex, "Formulario no encontrado con ID: {FormId}", id);
+                _logger.LogInformation(ex, "Formulario no encontrado con ID: {FormId}", formDto.Id);
                 return NotFound(new { message = ex.Message });
             }
             catch (ExternalServiceException ex)
             {
-                _logger.LogError(ex, "Error al actualizar formulario con ID: {FormId}", id);
+                _logger.LogError(ex, "Error al actualizar formulario con ID: {FormId}", formDto.Id);
                 return StatusCode(500, new { message = ex.Message });
             }
         }
@@ -179,8 +179,8 @@ namespace Web.Controllers
         {
             try
             {
-                await _formBusiness.DeleteFormAsync(id);
-                return NoContent();
+                var eliminacion =await _formBusiness.DeleteFormAsync(id);
+                return Ok(new {message = "Se eliminó el registro", eliminacion});
             }
             catch (ValidationException ex)
             {

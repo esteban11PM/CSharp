@@ -10,7 +10,7 @@ namespace Entity.DTOs
     {
         public int Id { get; set; }
 
-        public int RoleId { get; set; } // llave foranea de Rol
+        public int RolId { get; set; } // llave foranea de Rol
         public string RoleName { get; set; }
 
         public int PermissionId { get; set; } // llave foranea de Permission

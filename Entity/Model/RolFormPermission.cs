@@ -11,7 +11,7 @@ namespace Entity.Model
         public int Id { get; set; }
 
         // Claves foráneas
-        public int RoleId { get; set; } 
+        public int RolId { get; set; } 
         public Rol Rol { get; set; } //Propiedad de navegacion  
 
         public int PermissionId { get; set; }

@@ -179,8 +179,8 @@ namespace Web.Controllers
         {
             try
             {
-                await _permissionBusiness.DeletePermissionAsync(id);
-                return NoContent();
+                var eliminacion =await _permissionBusiness.DeletePermissionAsync(id);
+                return Ok(new {mesagge = "se eliminó el registro", eliminacion});
             }
             catch (ValidationException ex)
             {

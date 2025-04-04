@@ -17,3 +17,4 @@
 /Users/estebanp11/SENA/SENA_2025/C#/ModelSecurity/Business/obj/Debug/net8.0/refint/Business.dll
 /Users/estebanp11/SENA/SENA_2025/C#/ModelSecurity/Business/obj/Debug/net8.0/Business.pdb
 /Users/estebanp11/SENA/SENA_2025/C#/ModelSecurity/Business/obj/Debug/net8.0/ref/Business.dll
+/Users/estebanp11/SENA/SENA_2025/C#/ModelSecurity/Business/obj/Debug/net8.0/Business.sourcelink.json

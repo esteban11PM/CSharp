@@ -9,6 +9,7 @@ namespace Entity.Model
     public class FormModule
     {
         public int Id { get; set; }
+        public bool Active {get; set;}
 
         // Claves foráneas
         public int FormId { get; set; }

@@ -9,6 +9,8 @@ namespace Entity.DTOs
     public class FormModuleDTO
     {
         public int Id { get; set; }
+        public bool Active {get; set;}
+
         public int FormId { get; set; }
         public string FormName { get; set; }
 

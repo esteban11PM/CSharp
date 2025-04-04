@@ -15,7 +15,7 @@ namespace Entity.Model
         public User User { get; set; }
 
         public int RoleId { get; set; }
-        public Rol Rol { get; set; }
+        public Rol Role { get; set; }
     }
     
 }

@@ -33,7 +33,9 @@ namespace Data
     ///     consulta completa
         public async Task<IEnumerable<RolUser>> GetAllAsync()
         {
-            return await _context.Set<RolUser>().ToListAsync();
+            return await _context.RolUser.Include(ru => ru.User)
+                                            . Include(ru => ru.Role)
+                                            .ToListAsync(); //hace Un tipo JOIN con LINQ
         }
 
         // consulta por ID
@@ -41,7 +43,9 @@ namespace Data
         {
             try
             {
-                return await _context.Set<RolUser>().FindAsync(id);
+                return await _context.RolUser.Include(ru => ru.User)
+                                                .Include(ru => ru.Role)
+                                                .FirstOrDefaultAsync(ru => ru.Id == id); //hace el mismo join pero lo muestra de forma ordenada
             }
             catch (Exception ex)
             {
@@ -55,7 +59,7 @@ namespace Data
         {
             try
             {
-                await _context.Set<RolUser>().AddAsync(rolUser);
+                _context.RolUser.Add(rolUser);
                 await _context.SaveChangesAsync();
                 return rolUser;
             }
@@ -105,7 +109,7 @@ namespace Data
         /// </summary>
 
          ///consulta completa
-        public async Task<IEnumerable<RolUser>> GetAllAsyncSQL()
+        public async Task<IEnumerable<RolUserDTO>> GetAllAsyncSQL()
         {
             string query = @"
                 SELECT 
@@ -116,7 +120,7 @@ namespace Data
                 INNER JOIN User u ON ru.UserId = u.Id
                 INNER JOIN Rol r ON ru.RoleId = r.Id";
 
-            return await _dapperConnection.QueryAsync<RolUser>(query);
+            return await _dapperConnection.QueryAsync<RolUserDTO>(query);
         }
 
         // consulta por ID

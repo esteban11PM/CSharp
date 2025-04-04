@@ -30,7 +30,9 @@ namespace Data
         //consulta completa
         public async Task<IEnumerable<FormModule>> GetAllAsync()
         {
-            return await _context.Set<FormModule>().ToListAsync();
+            return await _context.FormModule.Include(fm => fm.Module)
+                                            .Include(fm => fm.Form)
+                                            .ToListAsync(); //especie de Join con LINQ
         }
 
         //consulta por ID
@@ -38,7 +40,9 @@ namespace Data
         {
             try
             {
-                return await _context.Set<FormModule>().FindAsync(id);
+                return await _context.FormModule.Include(fm => fm.Module)
+                                                .Include(fm => fm.Form)
+                                                .FirstOrDefaultAsync(fm => fm.Id == id); //consulta con las llaves foraneas
             }
             catch (Exception ex)
             {
@@ -52,7 +56,7 @@ namespace Data
         {
             try
             {
-                await _context.Set<FormModule>().AddAsync(formModule);
+                _context.FormModule.Add(formModule);
                 await _context.SaveChangesAsync();
                 return formModule;
             }

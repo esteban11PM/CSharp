@@ -9,3 +9,4 @@
 /Users/estebanp11/SENA/SENA_2025/C#/ModelSecurity/Utilities/obj/Debug/net8.0/refint/Utilities.dll
 /Users/estebanp11/SENA/SENA_2025/C#/ModelSecurity/Utilities/obj/Debug/net8.0/Utilities.pdb
 /Users/estebanp11/SENA/SENA_2025/C#/ModelSecurity/Utilities/obj/Debug/net8.0/ref/Utilities.dll
+/Users/estebanp11/SENA/SENA_2025/C#/ModelSecurity/Utilities/obj/Debug/net8.0/Utilities.sourcelink.json

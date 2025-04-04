@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Linq;
 using System.Threading.Tasks;
 using Data;
@@ -24,13 +25,15 @@ namespace Business
             _logger = logger;
         }
 
-        // Método para obtener todos los RolUser como DTOs
+         /// <summary>
+        /// Obtiene todos los RolUser como DTOs.
+        /// </summary>
         public async Task<IEnumerable<RolUserDTO>> GetAllRolUsersAsync()
         {
             try
             {
                 var rolesUsers = await _rolUserData.GetAllAsync();
-                return rolesUsers.Select(MapToDTO);
+                return MapToDTOList(rolesUsers);
             }
             catch (Exception ex)
             {
@@ -67,16 +70,19 @@ namespace Business
         }
 
         // Método para crear un RolUser desde un DTO
-        public async Task<RolUserDTO> CreateRolUserAsync(RolUserDTO rolUserDTO)
+        public async Task<RolUserCreateDTO> CreateRolUserAsync(RolUserCreateDTO rolUserDTO)
         {
             try
             {
-                ValidateRolUser(rolUserDTO);
+                // ValidateRolUser(rolUserDTO);
 
-                var rolUser = MapToEntity(rolUserDTO);
+                var rolUser = MapCreateToEntity(rolUserDTO);
                 var rolCreado = await _rolUserData.CreateAsync(rolUser);
 
-                return MapToDTO(rolCreado);
+                //Se reobtiene el usuario con persona
+                var rolWithUser = (await _rolUserData.GetAllAsync()).FirstOrDefault(ru => ru.Id == rolCreado.Id);
+
+                return MapToCreateDTO(rolWithUser);
             }
             catch (Exception ex)
             {
@@ -85,34 +91,37 @@ namespace Business
             }
         }
 
-        // Método para actualizar un RolUser desde un DTO
-        public async Task<bool> UpdateRolUserAsync(RolUserDTO rolUserDTO)
+        /// <summary>
+        /// Actualiza un usuario existente.
+        /// </summary>
+        public async Task<RolUserDTO> UpdateRolUserAsync(RolUserCreateDTO rolUserCreateDTO)
         {
+            var existingRolUser = await _rolUserData.GetByIdAsync(rolUserCreateDTO.Id);
+            if (existingRolUser == null)
+            {
+                throw new EntityNotFoundException("Rol", rolUserCreateDTO.Id);
+            }
             try
             {
-                ValidateRolUser(rolUserDTO);
+                // Actualizar propiedades
+                existingRolUser.UserId = rolUserCreateDTO.UserId;
+                existingRolUser.RoleId = rolUserCreateDTO.RoleId; 
 
-                var rolUser = new RolUser
+                // Llamar al Data layer para actualizar
+                var updated = await _rolUserData.UpdateAsync(existingRolUser);
+                if (!updated)
                 {
-                    Id = rolUserDTO.Id,
-                    UserId = rolUserDTO.UserId,
-                    RoleId = rolUserDTO.RoleId
-                };
-
-                var actualizado = await _rolUserData.UpdateAsync(rolUser);
-
-                if (!actualizado)
-                {
-                    _logger.LogWarning("No se pudo actualizar el RolUser con ID: {RolUserId}", rolUserDTO.Id);
-                    throw new ExternalServiceException("Base de datos", $"No se pudo actualizar el RolUser con ID {rolUserDTO.Id}");
+                    throw new ExternalServiceException("Base de datos", "No se pudo actualizar el usuario", null);
                 }
 
-                return true;
+                // Vuelve a obtener el usuario actualizado incluyendo la información de Person
+                    var userWithPerson = await _rolUserData.GetByIdAsync(rolUserCreateDTO.Id);
+                    return MapToDTO(userWithPerson);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error al actualizar el RolUser con ID: {RolUserId}", rolUserDTO.Id);
-                throw new ExternalServiceException("Base de datos", $"Error al actualizar el RolUser con ID {rolUserDTO.Id}", ex);
+                _logger.LogError(ex, "Error al actualizar el usuario con ID: {UserId}", rolUserCreateDTO.Id);
+                throw new ExternalServiceException("Base de datos", "Error al actualizar el usuario.", ex);
             }
         }
 
@@ -139,26 +148,32 @@ namespace Business
         }
 
         // Método para validar el DTO
-        private void ValidateRolUser(RolUserDTO rolUserDTO)
-        {
-            if (rolUserDTO == null)
-            {
-                throw new Utilities.Exceptions.ValidationException("El objeto RolUser no puede ser nulo");
-            }
-        }
+        // private void ValidateRolUser(RolUserDTO rolUserDTO)
+        // {
+        //     if (rolUserDTO == null)
+        //     {
+        //         throw new Utilities.Exceptions.ValidationException("El objeto RolUser no puede ser nulo");
+        //     }
+        // }
 
-        // Método para mapear el RolUser a RolUserDTO
+        /// <summary>
+        /// Mapea un objeto RolUser a RolUserDTO.
+        /// </summary>
         private RolUserDTO MapToDTO(RolUser rolUser)
         {
             return new RolUserDTO
             {
                 Id = rolUser.Id,
                 UserId = rolUser.UserId,
-                RoleId = rolUser.RoleId
+                UserName = rolUser.User?.Username,
+                RoleId = rolUser.RoleId,
+                RoleName = rolUser.Role?.Name
             };
         }
 
-        // Método para mapear de RolUserDTO a RolUser
+        /// <summary>
+        /// Mapea un objeto RolUserDTO a RolUser.
+        /// </summary>
         private RolUser MapToEntity(RolUserDTO rolUserDTO)
         {
             return new RolUser
@@ -167,6 +182,42 @@ namespace Business
                 UserId = rolUserDTO.UserId,
                 RoleId = rolUserDTO.RoleId
             };
+        }
+
+        /// <summary>
+        /// Mapea un objeto User a UserCreateDTO.
+        /// </summary>
+        private RolUserCreateDTO MapToCreateDTO(RolUser rolUser)
+        {
+            return new RolUserCreateDTO
+            {
+                Id = rolUser.Id,
+                UserId = rolUser.UserId,
+                RoleId = rolUser.RoleId
+            };
+        }
+
+        /// <summary>
+        /// Mapea un objeto UserCreateDTO a User.
+        /// </summary>
+        private RolUser MapCreateToEntity(RolUserCreateDTO rolUserCreate)
+        {
+            return new RolUser
+            {
+                Id = rolUserCreate.Id,
+                UserId = rolUserCreate.UserId,
+                RoleId = rolUserCreate.RoleId
+            };
+        }
+
+        /// <summary>
+        /// Metodo para mapear una lista de User a una lista de UserDTO 
+        /// </summary>
+        /// <param name="users"></param>
+        /// <returns></returns>
+        private IEnumerable<RolUserDTO> MapToDTOList(IEnumerable<RolUser> rolesUsers)
+        {
+            return rolesUsers.Select(MapToDTO);
         }
     }
 }

@@ -4,6 +4,7 @@ using Entity.Contexts;
 using Microsoft.EntityFrameworkCore;
 using System.Data;
 using Microsoft.Data.SqlClient;
+using Entity.Model;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +20,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddScoped<IDbConnection>(sp => new SqlConnection(connectionString));
 
 // Agregar servicios de negocio y datos
+
 builder.Services.AddScoped<FormBusiness>();
 builder.Services.AddScoped<FormData>();
 
@@ -34,14 +36,25 @@ builder.Services.AddScoped<ModuleData>();
 builder.Services.AddScoped<PermissionBusiness>();
 builder.Services.AddScoped<PermissionData>();
 
+builder.Services.AddScoped<UserBusiness>();
+builder.Services.AddScoped<UserData>();
+
+builder.Services.AddScoped<RolUserBusiness>();
+builder.Services.AddScoped<RolUserData>();
+
+builder.Services.AddScoped<RolFormPermissionBusiness>();
+builder.Services.AddScoped<RolFormPermissionData>();
+
+builder.Services.AddScoped<FormModuleBusiness>();
+builder.Services.AddScoped<FormModuleData>();
 
 // Configuración de CORS (opcional, si tu frontend lo necesita)
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAllOrigins", builder =>
         builder.AllowAnyOrigin()
-               .AllowAnyMethod()
-               .AllowAnyHeader()
+                .AllowAnyMethod()
+                .AllowAnyHeader()
     );
 });
 

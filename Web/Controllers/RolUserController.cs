@@ -94,11 +94,11 @@ namespace Web.Controllers
         [ProducesResponseType(typeof(RolUserDTO), 201)]
         [ProducesResponseType(400)]
         [ProducesResponseType(500)]
-        public async Task<IActionResult> CreateRolUser([FromBody] RolUserDTO dto)
+        public async Task<IActionResult> CreateRolUser([FromBody] RolUserCreateDTO rolUserCreateDTO)
         {
             try
             {
-                var createdRecord = await _rolUserBusiness.CreateRolUserAsync(dto);
+                var createdRecord = await _rolUserBusiness.CreateRolUserAsync(rolUserCreateDTO);
                 return CreatedAtAction(nameof(GetRolUserById), new { id = createdRecord.Id }, createdRecord);
             }
             catch (ValidationException ex)
@@ -124,7 +124,7 @@ namespace Web.Controllers
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
         [ProducesResponseType(500)]
-        public async Task<IActionResult> UpdateRolUser(int id, [FromBody] RolUserDTO dto)
+        public async Task<IActionResult> UpdateRolUser([FromBody] RolUserCreateDTO dto)
         {
             try
             {
@@ -133,17 +133,17 @@ namespace Web.Controllers
             }
             catch (ValidationException ex)
             {
-                _logger.LogWarning(ex, "Validación fallida al actualizar RolUser con ID: {Id}", id);
+                _logger.LogWarning(ex, "Validación fallida al actualizar RolUser con ID: {Id}", dto);
                 return BadRequest(new { message = ex.Message });
             }
             catch (EntityNotFoundException ex)
             {
-                _logger.LogInformation(ex, "RolUser no encontrado con ID: {Id}", id);
+                _logger.LogInformation(ex, "RolUser no encontrado con ID: {Id}", dto);
                 return NotFound(new { message = ex.Message });
             }
             catch (ExternalServiceException ex)
             {
-                _logger.LogError(ex, "Error al actualizar RolUser con ID: {Id}", id);
+                _logger.LogError(ex, "Error al actualizar RolUser con ID: {Id}", dto);
                 return StatusCode(500, new { message = ex.Message });
             }
         }
@@ -163,7 +163,7 @@ namespace Web.Controllers
             try
             {
                 await _rolUserBusiness.DeleteRolUserAsync(id);
-                return NoContent();
+                return Ok(new {message = "Se eliminó el registro"});
             }
             catch (ValidationException ex)
             {

@@ -32,7 +32,10 @@ namespace Data
     ///  consulta completa
         public async Task<IEnumerable<RolFormPermission>> GetAllAsync()
         {
-            return await _context.Set<RolFormPermission>().ToListAsync();
+            return await _context.RolFormPermission.Include(rfp => rfp.Rol)
+                                                        .Include(rfp => rfp.Permission)
+                                                        .Include(rfp => rfp.Form)
+                                                        .ToListAsync(); // hace un tipo Join en LINQ
         }
 
         // consulta por ID
@@ -40,7 +43,10 @@ namespace Data
         {
             try
             {
-                return await _context.Set<RolFormPermission>().FindAsync(id);
+                return await _context.RolFormPermission.Include(rfp => rfp.Rol)
+                                                        .Include(rfp => rfp.Permission)
+                                                        .Include(rfp => rfp.Form)
+                                                        .FirstOrDefaultAsync(rfp => rfp.Id == id);
             }
             catch (Exception ex)
             {
@@ -54,7 +60,7 @@ namespace Data
         {
             try
             {
-                await _context.Set<RolFormPermission>().AddAsync(rolFormPermission);
+                _context.RolFormPermission.Add(rolFormPermission);
                 await _context.SaveChangesAsync();
                 return rolFormPermission;
             }
@@ -184,7 +190,7 @@ namespace Data
                             WHERE Id = @Id";
                 var affectedRows = await  _dapperConnection.ExecuteAsync(sql, new{
                     rfp.Id,
-                    rfp.RoleId,
+                    rfp.RolId,
                     rfp.FormId,
                     rfp.PermissionId
                 });

@@ -22,21 +22,54 @@ namespace Entity.Contexts
         /// <summary>
         /// Definition of DBSet
         /// </summary>
-        
-        // para form
+        /// <summary>
+        /// para form
+        /// </summary>
+        // 
         public DbSet<Form> Form { get; set; }
 
-        //para person
+        /// <summary>
+        /// Para person
+        /// </summary>
         public DbSet<Person> Person {get; set;}
 
-        //Para Rol
+        /// <summary>
+        /// Para Rol
+        /// </summary>
         public DbSet<Rol> Rol {get; set;}
 
-        //para Module
+        /// <summary>
+        /// Para module
+        /// </summary>
         public DbSet<Entity.Model.Module> Module {get; set;}
 
-        //Para Permission
+        /// <summary>
+        /// Para Permission
+        /// </summry>
         public DbSet<Permission> Permission {get; set;}
+
+        /// <summary>
+        /// para user
+        /// </summary>
+        public DbSet<User> User { get; set; }
+
+        /// <summary>
+        /// para RolUser 
+        /// </summary>
+        public DbSet<RolUser> RolUser {get; set; }
+
+        /// <summary>
+        /// para RolFormPermission
+        /// </summary>
+        public DbSet<RolFormPermission> RolFormPermission {get; set;}
+
+        /// <summary>
+        /// para FormModule
+        /// </summary>
+        public DbSet<FormModule> FormModule {get; set;}
+        
+
+
 
         /// <summary>
         /// Constructor del contexto de la base de datos.

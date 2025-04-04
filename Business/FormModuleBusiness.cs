@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Data;
 using Entity.DTOs;
 using Entity.Model;
+using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 using Microsoft.Extensions.Logging;
 using Utilities.Exceptions;
 
@@ -73,16 +75,20 @@ namespace Business
         /// <summary>
         /// Crea una nueva relación FormModule.
         /// </summary>
-        public async Task<FormModuleDTO> CreateFormModuleAsync(FormModuleDTO formModuleDTO)
+        public async Task<FormModuleCreateDTO> CreateFormModuleAsync(FormModuleCreateDTO formModuleDTO)
         {
             try
             {
-                ValidateFormModule(formModuleDTO);
+                // ValidateFormModule(formModuleDTO);
 
-                var formModule = MapToEntity(formModuleDTO);
+                var formModule = MapToCreateEntity(formModuleDTO);
                 var createdFormModule = await _formModuleData.CreateAsync(formModule);
 
-                return MapToDTO(createdFormModule);
+                //Vulve a llamar el FormModule con las dos llaves foraneas
+                var formWithModule = (await _formModuleData.GetAllAsync()).FirstOrDefault(fm => fm.Id == createdFormModule.Id);
+
+
+                return MapToCreteDTO(formWithModule);
             }
             catch (Exception ex)
             {
@@ -95,23 +101,29 @@ namespace Business
         /// <summary>
         /// Actualiza una relación FormModule existente.
         /// </summary>
-        public async Task<bool> UpdateFormModuleAsync(FormModuleDTO formModuleDTO)
+        public async Task<FormModuleDTO> UpdateFormModuleAsync(FormModuleCreateDTO formModuleDTO)
         {
+            var existingFormModule = await _formModuleData.GetByIdAsync(formModuleDTO.Id);
+            if (existingFormModule == null)
+            {
+                throw new EntityNotFoundException("Rol", formModuleDTO.Id);
+            }
             try
             {
-                ValidateFormModule(formModuleDTO);
-
-                var existingFormModule = await _formModuleData.GetByIdAsync(formModuleDTO.Id);
-                if (existingFormModule == null)
-                {
-                    throw new EntityNotFoundException("FormModule", formModuleDTO.Id);
-                }
-
                 // Actualizar propiedades
                 existingFormModule.FormId = formModuleDTO.FormId;
-                existingFormModule.ModuleId = formModuleDTO.ModuleId;
+                existingFormModule.ModuleId = formModuleDTO.ModuleId; 
 
-                return await _formModuleData.UpdateAsync(existingFormModule);
+                // Llamar al Data layer para actualizar
+                var updated = await _formModuleData.UpdateAsync(existingFormModule);
+                if (!updated)
+                {
+                    throw new ExternalServiceException("Base de datos", "No se pudo actualizar el usuario", null);
+                }
+
+                // Vuelve a obtener el usuario actualizado incluyendo la información de Person
+                    var formWithModule = await _formModuleData.GetByIdAsync(formModuleDTO.Id);
+                    return MapToDTO(formWithModule);
             }
             catch (Exception ex)
             {
@@ -176,9 +188,10 @@ namespace Business
             return new FormModuleDTO
             {
                 Id = formModule.Id,
+                Active = formModule.Active,
                 FormId = formModule.FormId,
-                ModuleId = formModule.ModuleId,
                 FormName = formModule.Form?.Name,
+                ModuleId = formModule.ModuleId,
                 ModuleName = formModule.Module?.Name
             };
         }
@@ -197,6 +210,33 @@ namespace Business
             };
         }
 
+        /// <summary>
+        /// Mapea un objeto de FormModule a FormModuleCreateDTO.
+        /// </summary>
+        public FormModuleCreateDTO MapToCreteDTO(FormModule formModule)
+        {
+            return new FormModuleCreateDTO
+            {
+                Id = formModule.Id,
+                Active = formModule.Active,
+                FormId = formModule.FormId,
+                ModuleId = formModule.ModuleId
+            };
+        }
+
+        /// <summary>
+        /// Mapea un objeto FormModuleDTO a FormModule.
+        /// </summary>
+        public FormModule MapToCreateEntity(FormModuleCreateDTO createDTO)
+        {
+            return new FormModule
+            {
+                Id = createDTO.Id,
+                Active = createDTO.Active,
+                FormId = createDTO.FormId,
+                ModuleId = createDTO.ModuleId
+            };
+        }
 
         /// <summary>
         /// Metodo para mapear una lista de FormModule a una lista de ForModuleDTO 
@@ -205,13 +245,8 @@ namespace Business
         /// <returns></returns>
         private IEnumerable<FormModuleDTO> MapToDTOList(IEnumerable<FormModule> formModule)
         {
-            var formModuleDTO = new List<FormModuleDTO>();
-            foreach (var formModule1 in formModule)
-            {
-                formModuleDTO.Add(MapToDTO(formModule1));
-            }
-            return formModuleDTO;
+            
+            return formModule.Select(MapToDTO);
         }
-
     }
 }

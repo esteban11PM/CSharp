@@ -179,8 +179,8 @@ namespace Web.Controllers
         {
             try
             {
-                await _personBusiness.DeletePersonAsync(id);
-                return NoContent();
+                var eliminacion =await _personBusiness.DeletePersonAsync(id);
+                return Ok(new {message = "Se eliminó el registro ", eliminacion});
             }
             catch (ValidationException ex)
             {

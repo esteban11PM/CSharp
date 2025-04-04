@@ -12,3 +12,4 @@
 /Users/estebanp11/SENA/SENA_2025/C#/ModelSecurity/Entity/obj/Debug/net8.0/Entity.pdb
 /Users/estebanp11/SENA/SENA_2025/C#/ModelSecurity/Entity/obj/Debug/net8.0/Entity.genruntimeconfig.cache
 /Users/estebanp11/SENA/SENA_2025/C#/ModelSecurity/Entity/obj/Debug/net8.0/ref/Entity.dll
+/Users/estebanp11/SENA/SENA_2025/C#/ModelSecurity/Entity/obj/Debug/net8.0/Entity.sourcelink.json
