@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,9 +9,16 @@ namespace Entity.Model
 {
     public class Form
     {
+        [Column("id")] // id en snake_case
         public int Id { get; set; }
+
+        [Column("name")] // name en snake_case
         public string Name { get; set; }
-        public bool Active {get; set;}
+
+        [Column("active")] // active en snake_case
+        public bool Active { get; set; }
+
+        [Column("description")] // description en snake_case
         public string Description { get; set; }
 
         // Relaciones

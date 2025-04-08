@@ -1,10 +1,14 @@
 ﻿using Dapper;
 using Entity.Model;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Configuration;
+using MySql.Data.MySqlClient;
+using Npgsql;
 using System.Data;
 using System.Reflection;
+using Utilities.Enums;
 
 namespace Entity.Contexts
 {
@@ -18,6 +22,7 @@ namespace Entity.Contexts
         /// Configuración de la aplicación.
         /// </summary>
         protected readonly IConfiguration _configuration;
+        protected readonly DatabaseType _databaseType;
 
         /// <summary>
         /// Definition of DBSet
@@ -80,6 +85,14 @@ namespace Entity.Contexts
         : base(options)
         {
             _configuration = configuration;
+            string provider = _configuration["DatabaseProvider"];
+            _databaseType = provider switch
+            {
+                "DefaultConnection"    => DatabaseType.DefaultConnection,
+                "PostgreSQL"   => DatabaseType.PostgreSQL,
+                "MySQL"        => DatabaseType.MySQL,
+                _              => throw new ArgumentException("Proveedor de base de datos no válido en la configuración.")
+            };
         }
 
         /// <summary>
@@ -95,16 +108,56 @@ namespace Entity.Contexts
         }
 
         //conexión del dapper
-        public IDbConnection CreateConnection() => Database.GetDbConnection();
+        public IDbConnection CreateConnection()
+        {
+            // Se obtiene la cadena de conexión en dependiendo el motor que se utilice
+            string connectionString = _databaseType switch
+            {
+                DatabaseType.DefaultConnection  => _configuration.GetConnectionString("DefaultConnection"),
+                DatabaseType.PostgreSQL => _configuration.GetConnectionString("PostgreSQL"),
+                DatabaseType.MySQL      => _configuration.GetConnectionString("MySQL"),
+                _                       => throw new ArgumentException("Motor de BD no soportado")
+            };
 
+            return _databaseType switch
+            {
+                DatabaseType.DefaultConnection  => new SqlConnection(connectionString),
+                DatabaseType.PostgreSQL => new NpgsqlConnection(connectionString),
+                DatabaseType.MySQL      => new MySqlConnection(connectionString),
+                _                       => throw new ArgumentException("Motor de BD no válido")
+            };
+        }
         /// <summary>
         /// Configura opciones adicionales del contexto, como el registro de datos sensibles.
         /// </summary>
         /// <param name="optionsBuilder">Constructor de opciones de configuración del contexto.</param>
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            // Llama a la conexion segun el contexto
+            if (!optionsBuilder.IsConfigured)
+            {
+                string connectionString = _configuration.GetConnectionString(_databaseType switch
+                {
+                    DatabaseType.DefaultConnection  => "DefaultConnection",
+                    DatabaseType.PostgreSQL => "PostgreSQL",
+                    DatabaseType.MySQL      => "MySQL",
+                    _                       => throw new ArgumentException("Proveedor no soportado")
+                });
+
+                switch (_databaseType)
+                {
+                    case DatabaseType.DefaultConnection:
+                        optionsBuilder.UseSqlServer(connectionString);
+                        break;
+                    case DatabaseType.PostgreSQL:
+                        optionsBuilder.UseNpgsql(connectionString);
+                        break;
+                    case DatabaseType.MySQL:
+                        optionsBuilder.UseMySql(connectionString, new MySqlServerVersion(new Version(9, 2, 0)));
+                        break;
+                }
+            }
             optionsBuilder.EnableSensitiveDataLogging();
-            // Otras configuraciones adicionales pueden ir aquí
         }
 
         /// <summary>

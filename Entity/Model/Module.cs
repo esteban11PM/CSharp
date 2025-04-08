@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,12 +9,18 @@ namespace Entity.Model
 {
     public class Module
     {
+        [Column("id")]
         public int Id { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public bool Active {get; set;}
 
-        // Relación con FormModule
-        public ICollection<FormModule> FormModules { get; set; } //Propiedad de navegacion inversaS
+        [Column("name")]
+        public string Name { get; set; }
+
+        [Column("description")]
+        public string Description { get; set; }
+
+        [Column("active")]
+        public bool Active { get; set; }
+
+        public ICollection<FormModule> FormModules { get; set; }
     }
 }
