@@ -157,6 +157,41 @@ namespace Business
             }
         }
 
+
+        /// <summary>
+        /// Elimina un formulario de manera logica por ID
+        /// </summary>
+        public async Task<bool> DeleteFormLogicalAsync(int id)
+        {
+            if (id <= 0)
+            {
+                throw new ValidationException("ID", "El ID del formulario debe ser mayor que cero.");
+            }
+
+            var existingForm = await _formData.GetByIdAsync(id);
+            if (existingForm == null)
+            {
+                throw new EntityNotFoundException("Form", id);
+            }
+
+            try
+            {
+
+                return await _formData.DeleteLogicAsyncSQL(id);
+
+            }
+            catch (ExternalServiceException ex)
+            {
+                _logger.LogError(ex, "Error en servicio externo al eliminar el formulario con ID: {FormId}", id);
+                throw;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error al eliminar el formulario de manera logica con ID: {FormId}", id);
+                throw new ExternalServiceException("Base de datos", "Error al eliminar el formulario de manera logica.", ex);
+            }
+        }
+
         /// <summary>
         /// Método para mapear la entidad Form a FormDTO.
         /// </summary>
@@ -168,7 +203,9 @@ namespace Business
             {
                 Id = form.Id,
                 Name = form.Name,
-                Description = form.Description
+                Description = form.Description,
+                Active = form.Active
+                
             };
         }
 
@@ -183,7 +220,9 @@ namespace Business
             {
                 Id = formDTO.Id,
                 Name = formDTO.Name,
-                Description = formDTO.Description
+                Description = formDTO.Description,
+                Active = formDTO.Active
+                
             };
         }
 
@@ -195,7 +234,7 @@ namespace Business
         private IEnumerable<FormDTO> MapToDTOList(IEnumerable<Form> forms)
         {
             // Uso de LINQ para mayor simplicidad
-            return forms.Select(form => MapToDTO(form));
+            return forms.Select(MapToDTO);
         }
     }
 }

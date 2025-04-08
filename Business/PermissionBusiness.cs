@@ -116,6 +116,40 @@ namespace Business
             return await _permissionData.DeleteAsync(id);
         }
 
+        /// <summary>
+        /// Elimina un formulario de manera logica por ID
+        /// </summary>
+        public async Task<bool> DeletePermissionLogicalAsync(int id)
+        {
+            if (id <= 0)
+            {
+                throw new ValidationException("ID", "El ID del Permission debe ser mayor que cero.");
+            }
+
+            var existingPermission = await _permissionData.GetByIdAsync(id);
+            if (existingPermission == null)
+            {
+                throw new EntityNotFoundException("Form", id);
+            }
+
+            try
+            {
+
+                return await _permissionData.DeleteLogicAsyncSQL(id);
+
+            }
+            catch (ExternalServiceException ex)
+            {
+                _logger.LogError(ex, "Error en servicio externo al eliminar el Permission con ID: {FormId}", id);
+                throw;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error al eliminar el Permission de manera logica con ID: {FormId}", id);
+                throw new ExternalServiceException("Base de datos", "Error al eliminar el Permission de manera logica.", ex);
+            }
+        }
+
         // Método para validar el DTO
         private void ValidatePermission(PermissionDTO permissionDTO)
         {

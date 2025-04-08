@@ -9,6 +9,7 @@ namespace Entity.DTOs
     public class RolFormPermissionDTO
     {
         public int Id { get; set; }
+        public bool Active {get; set;}
 
         public int RolId { get; set; } // llave foranea de Rol
         public string RoleName { get; set; }

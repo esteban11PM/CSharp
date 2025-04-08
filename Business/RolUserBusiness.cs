@@ -104,6 +104,7 @@ namespace Business
             try
             {
                 // Actualizar propiedades
+                existingRolUser.Active = rolUserCreateDTO.Active;
                 existingRolUser.UserId = rolUserCreateDTO.UserId;
                 existingRolUser.RoleId = rolUserCreateDTO.RoleId; 
 
@@ -147,6 +148,39 @@ namespace Business
             }
         }
 
+        /// <summary>
+        /// Elimina un FormModule de manera logica por ID
+        /// </summary>
+        public async Task<bool> DeleteRolUserLogicalAsync(int id)
+        {
+            if (id <= 0)
+            {
+                throw new ValidationException("ID", "El ID del rolUser debe ser mayor que cero.");
+            }
+
+            var existingUser = await _rolUserData.GetByIdAsync(id);
+            if (existingUser == null)
+            {
+                throw new EntityNotFoundException("rolUser", id);
+            }
+            try
+            {
+
+                return await _rolUserData.DeleteLogicAsyncSQL(id);
+
+            }
+            catch (ExternalServiceException ex)
+            {
+                _logger.LogError(ex, "Error en servicio externo al eliminar el rolUser con ID: {RolUserId}", id);
+                throw;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error al eliminar el rolUser de manera logica con ID: {RolUserId}", id);
+                throw new ExternalServiceException("Base de datos", "Error al eliminar el rolUser de manera logica.", ex);
+            }
+        }
+
         // Método para validar el DTO
         // private void ValidateRolUser(RolUserDTO rolUserDTO)
         // {
@@ -164,6 +198,7 @@ namespace Business
             return new RolUserDTO
             {
                 Id = rolUser.Id,
+                Active = rolUser.Active,
                 UserId = rolUser.UserId,
                 UserName = rolUser.User?.Username,
                 RoleId = rolUser.RoleId,
@@ -180,7 +215,8 @@ namespace Business
             {
                 Id = rolUserDTO.Id,
                 UserId = rolUserDTO.UserId,
-                RoleId = rolUserDTO.RoleId
+                RoleId = rolUserDTO.RoleId,
+                Active = rolUserDTO.Active
             };
         }
 
@@ -193,7 +229,8 @@ namespace Business
             {
                 Id = rolUser.Id,
                 UserId = rolUser.UserId,
-                RoleId = rolUser.RoleId
+                RoleId = rolUser.RoleId,
+                Active = rolUser.Active
             };
         }
 
@@ -206,7 +243,8 @@ namespace Business
             {
                 Id = rolUserCreate.Id,
                 UserId = rolUserCreate.UserId,
-                RoleId = rolUserCreate.RoleId
+                RoleId = rolUserCreate.RoleId,
+                Active = rolUserCreate.Active
             };
         }
 

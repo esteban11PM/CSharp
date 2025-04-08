@@ -219,5 +219,29 @@ namespace Data
                 throw;
             }
         }
+
+        /// <summary>
+        /// Elimina un RolFormPermission de manera logica de la base  de datos SQL
+        /// </summary>
+        public async Task<bool> DeleteLogicAsyncSQL(int id)
+        {
+            try
+            {
+                string query = @"
+                    UPDATE RolFormPermission
+                    SET Active = 0
+                    WHERE Id = @Id;
+                    SELECT CAST(@@ROWCOUNT AS int);";
+
+                int rowsAffected = await _dapperConnection.QuerySingleAsync<int>(query, new { Id = id });
+
+                return rowsAffected > 0;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al eliminar logicamente RolFormPermission: {ex.Message}");
+                return false;
+            }
+        }
     }
 }

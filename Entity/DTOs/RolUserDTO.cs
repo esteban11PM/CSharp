@@ -9,6 +9,7 @@ namespace Entity.DTOs
     public class RolUserDTO
     {
         public int Id { get; set; }
+        public bool Active {get; set;}
 
         public int UserId { get; set; } // LLave foranea de User
         public string UserName { get; set; }

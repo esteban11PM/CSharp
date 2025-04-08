@@ -104,7 +104,7 @@ namespace Business
                 existingRol.Id = rolDTO.Id;
                 existingRol.Name = rolDTO.Name;
                 existingRol.Description = rolDTO.Description;
-                existingRol.Active = rolDTO.Status;
+                existingRol.Active = rolDTO.Active;
 
                 return await _rolData.UpdateAsync(existingRol);
             }
@@ -125,6 +125,20 @@ namespace Business
             }
 
             return await _rolData.DeleteAsync(id);
+        }
+
+        /// <summary>
+        /// Elimina un rol de manera logica por ID.
+        /// </summary>
+        public async Task<bool> SoftDeleteRolAsync(int id)
+        {
+            var rol = await _rolData.GetByIdAsyncSql(id);
+            if (rol == null)
+            {
+                throw new EntityNotFoundException("Rol", id);
+            }
+
+            return await _rolData.SoftDeleteAsyncSQL(id);
         }
 
 
@@ -151,7 +165,7 @@ namespace Business
             {
                 Id = rol.Id,
                 Name = rol.Name,
-                Status = rol.Active,
+                Active = rol.Active,
                 Description = rol.Description
 
             };
@@ -164,20 +178,15 @@ namespace Business
             {
                 Id = rolDTO.Id,
                 Name = rolDTO.Name,
-                Active = rolDTO.Status,
+                Active = rolDTO.Active,
                 Description = rolDTO.Description
             };
         }
 
         // Método para mapear una lista de Rol a una lista de RolDTO
-        private IEnumerable<RolDTO> MapToDTOList(IEnumerable<Rol> roles)
+        private IEnumerable<RolDTO> MapToDTOList(IEnumerable<Rol> rols)
         {
-            var rolesDTO = new List<RolDTO>();
-            foreach(var rol in roles)
-            {
-                rolesDTO.Add(MapToDTO(rol));
-            }
-            return rolesDTO;
+            return rols.Select(MapToDTO);
         }
     }
 }

@@ -9,6 +9,7 @@ namespace Entity.Model
     public class RolFormPermission
     {
         public int Id { get; set; }
+        public bool Active {get; set;}
 
         // Claves foráneas
         public int RolId { get; set; } 

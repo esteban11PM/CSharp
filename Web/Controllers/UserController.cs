@@ -197,5 +197,40 @@ namespace Web.Controllers
                 return StatusCode(500, new { message = ex.Message });
             }
         }
+
+
+        /// <summary>
+        /// Elimina de manera logica un form del sistema
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpDelete("Logical/{id}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(500)]
+        public async Task<IActionResult> DeleteLogicalUserAsync(int id)
+        {
+            try
+            {
+                var deleted = await _userBusiness.DeleteUserLogicalAsync(id);
+
+                if (!deleted)
+                {
+                    return NotFound(new { message = "Formulario no encontrado o ya eliminado." });
+                }
+
+                return Ok(new { message = "Eliminación lógica exitosa." });
+            }
+            catch (EntityNotFoundException ex)
+            {
+                _logger.LogInformation(ex, "No se encontró el formulario con ID: {FormId}", id);
+                return NotFound(new { message = ex.Message });
+            }
+            catch (ExternalServiceException ex)
+            {
+                _logger.LogError(ex, "Error al eliminar el formulario de manera lógica con ID: {FormId}", id);
+                return StatusCode(500, new { message = ex.Message });
+            }
+        }
     }
 }

@@ -99,6 +99,7 @@ namespace Business
             try
             {
                 //Actualizar propiedades
+                existingRolFormPermission.Active = createDTO.Active;
                 existingRolFormPermission.RolId = createDTO.RolId;
                 existingRolFormPermission.PermissionId = createDTO.PermissionId;
                 existingRolFormPermission.FormId = createDTO.FormId;
@@ -144,6 +145,40 @@ namespace Business
             }
         }
 
+
+        /// <summary>
+        /// Elimina un FormModule de manera logica por ID
+        /// </summary>
+        public async Task<bool> DeleteRolFormPermissionLogicalAsync(int id)
+        {
+            if (id <= 0)
+            {
+                throw new ValidationException("ID", "El ID del rolFormPermission debe ser mayor que cero.");
+            }
+
+            var existingUser = await _rolFormPermissionData.GetByIdAsync(id);
+            if (existingUser == null)
+            {
+                throw new EntityNotFoundException("RolFormPermission", id);
+            }
+            try
+            {
+
+                return await _rolFormPermissionData.DeleteLogicAsyncSQL(id);
+
+            }
+            catch (ExternalServiceException ex)
+            {
+                _logger.LogError(ex, "Error en servicio externo al eliminar el rolFormPermission con ID: {RolFormPermissionId}", id);
+                throw;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error al eliminar el rolFormPermission de manera logica con ID: {rolFormPermissionId}", id);
+                throw new ExternalServiceException("Base de datos", "Error al eliminar el rolFormPermission de manera logica.", ex);
+            }
+        }
+
         // /// <summary>
         // /// Valida los datos de RolFormPermission.
         // /// </summary>
@@ -163,6 +198,7 @@ namespace Business
             return new RolFormPermissionDTO
             {
                 Id = entity.Id,
+                Active = entity.Active,
                 RolId = entity.RolId,
                 RoleName = entity.Rol?.Name,
                 PermissionId = entity.PermissionId,
@@ -195,6 +231,7 @@ namespace Business
             return new RolFormPermissionCreateDTO
             {
                 Id = rolFormPermission.Id,
+                Active = rolFormPermission.Active,
                 RolId = rolFormPermission.RolId,
                 PermissionId = rolFormPermission.PermissionId,
                 FormId = rolFormPermission.FormId
@@ -210,6 +247,7 @@ namespace Business
             return new RolFormPermission
             {
                 Id = createDTO.Id,
+                Active = createDTO.Active,
                 RolId = createDTO.RolId,
                 PermissionId = createDTO.PermissionId,
                 FormId = createDTO.FormId

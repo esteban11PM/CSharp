@@ -221,5 +221,28 @@ namespace Data
                 throw;
             }
         }
+
+        /// <summary>
+        /// Eliminacion logica de un Rol de la base de datos SQL
+        /// </summary>
+        public async Task<bool> SoftDeleteAsyncSQL(int id)
+        {
+            try
+            {
+                string query = @"
+                    UPDATE Rol
+                    SET Active = 0
+                    WHERE Id = @Id";
+
+                int rowsAffected = await _context.QueryFirstOrDefaultAsync<int>(query, new { Id = id });
+
+                return rowsAffected > 0;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Error al elimianr logicamente el rol {ex.Message}");
+                return false;
+            }
+        }
     }
 }

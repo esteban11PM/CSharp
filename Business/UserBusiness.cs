@@ -172,6 +172,40 @@ namespace Business
         }
 
         /// <summary>
+        /// Elimina un user de manera logica por ID
+        /// </summary>
+        public async Task<bool> DeleteUserLogicalAsync(int id)
+        {
+            if (id <= 0)
+            {
+                throw new ValidationException("ID", "El ID del user debe ser mayor que cero.");
+            }
+
+            var existingUser = await _userData.GetByIdAsync(id);
+            if (existingUser == null)
+            {
+                throw new EntityNotFoundException("Form", id);
+            }
+
+            try
+            {
+
+                return await _userData.DeleteLogicAsyncSQL(id);
+
+            }
+            catch (ExternalServiceException ex)
+            {
+                _logger.LogError(ex, "Error en servicio externo al eliminar el user con ID: {UserId}", id);
+                throw;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error al eliminar el user de manera logica con ID: {UserId}", id);
+                throw new ExternalServiceException("Base de datos", "Error al eliminar el user de manera logica.", ex);
+            }
+        }
+
+        /// <summary>
         /// Mapea un objeto User a UserDTO.
         /// </summary>
         private UserDTO MapToDTO(User user)

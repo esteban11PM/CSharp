@@ -151,6 +151,39 @@ namespace Business
         }
 
         /// <summary>
+        /// Elimina un person de manera logica por ID
+        /// </summary>
+        public async Task<bool> DeletePersonLogicalAsync(int id)
+        {
+            if (id <= 0)
+            {
+                throw new ValidationException("ID", "El ID del person debe ser mayor que cero.");
+            }
+
+            var existingPerson = await _personData.GetBydIdAsync(id);
+            if (existingPerson == null)
+            {
+                throw new EntityNotFoundException("Person", id);
+            }
+
+            try
+            {
+                return await _personData.DeleteLogicAsyncSQL(id);
+
+            }
+            catch (ExternalServiceException ex)
+            {
+                _logger.LogError(ex, "Error en servicio externo al eliminar el person con ID: {PersonId}", id);
+                throw;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error al eliminar el person de manera logica con ID: {PersonId}", id);
+                throw new ExternalServiceException("Base de datos", "Error al eliminar el person de manera logica.", ex);
+            }
+        }
+
+        /// <summary>
         /// Valida el DTO de la persona.
         /// </summary>
         private void ValidatePerson(PersonDTO personDTO)
@@ -213,7 +246,7 @@ namespace Business
         private IEnumerable<PersonDTO> MapToDTOList(IEnumerable<Person> persons)
         {
             // Se usa LINQ para simplificar el mapeo
-            return persons.Select(p => MapToDTO(p));
+            return persons.Select(MapToDTO);
         }
     }
 }

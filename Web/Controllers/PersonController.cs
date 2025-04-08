@@ -198,5 +198,38 @@ namespace Web.Controllers
                 return StatusCode(500, new { message = ex.Message });
             }
         }
+
+        /// <summary>
+        /// Elimina un person  de manera logica del sistema
+        /// </summary>
+
+        [HttpDelete("Logical/{id}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(500)]
+        public async Task<IActionResult> DeleteLogicalFormAsync(int id)
+        {
+            try
+            {
+                var deleted = await _personBusiness.DeletePersonLogicalAsync(id);
+
+                if (!deleted)
+                {
+                    return NotFound(new { message = "Person no encontrado o ya eliminado." });
+                }
+
+                return Ok(new { message = "Eliminación lógica exitosa." });
+            }
+            catch (EntityNotFoundException ex)
+            {
+                _logger.LogInformation(ex, "No se encontró el person con ID: {PersonId}", id);
+                return NotFound(new { message = ex.Message });
+            }
+            catch (ExternalServiceException ex)
+            {
+                _logger.LogError(ex, "Error al eliminar el person de manera lógica con ID: {PersonId}", id);
+                return StatusCode(500, new { message = ex.Message });
+            }
+        }
     }
 }

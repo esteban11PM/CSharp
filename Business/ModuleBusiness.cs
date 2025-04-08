@@ -143,6 +143,41 @@ namespace Business
             }
         }
 
+
+        /// <summary>
+        /// Elimina un Module de manera logica por ID
+        /// </summary>
+        public async Task<bool> DeleteModuleLogicalAsync(int id)
+        {
+            if (id <= 0)
+            {
+                throw new ValidationException("ID", "El ID del module debe ser mayor que cero.");
+            }
+
+            var existingModule = await _moduleData.GetByIdAsync(id);
+            if (existingModule == null)
+            {
+                throw new EntityNotFoundException("Module", id);
+            }
+
+            try
+            {
+
+                return await _moduleData.DeleteLogicAsyncSQL(id);
+
+            }
+            catch (ExternalServiceException ex)
+            {
+                _logger.LogError(ex, "Error en servicio externo al eliminar el module con ID: {FormId}", id);
+                throw;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error al eliminar el module de manera logica con ID: {FormId}", id);
+                throw new ExternalServiceException("Base de datos", "Error al eliminar el domule de manera logica.", ex);
+            }
+        }
+
         /// <summary>
         /// Valida el DTO del módulo.
         /// </summary>
@@ -169,7 +204,8 @@ namespace Business
             {
                 Id = module.Id,
                 Name = module.Name,
-                Description = module.Description
+                Description = module.Description,
+                Active = module.Active
             };
         }
 
@@ -182,7 +218,9 @@ namespace Business
             {
                 Id = moduleDTO.Id,
                 Name = moduleDTO.Name,
-                Description = moduleDTO.Description
+                Description = moduleDTO.Description,
+                Active = moduleDTO.Active
+                
             };
         }
 
@@ -191,7 +229,7 @@ namespace Business
         /// </summary>
         private IEnumerable<ModuleDTO> MapToDTOList(IEnumerable<Module> modules)
         {
-            return modules.Select(m => MapToDTO(m));
+            return modules.Select(MapToDTO);
         }
     }
 }

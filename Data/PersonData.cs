@@ -202,8 +202,30 @@ namespace Data
                 _looger.LogError(ex, "Error al eliminar un campo con SQL");
                 throw;
             }
-            
         }
 
+        /// <summary>
+        /// Elimina un Person de manera logica de la base  de datos SQL
+        /// </summary>
+        public async Task<bool> DeleteLogicAsyncSQL(int id)
+        {
+            try
+            {
+                string query = @"
+                    UPDATE Person 
+                    SET Status = 0
+                    WHERE Id = @Id;
+                    SELECT CAST(@@ROWCOUNT AS int);";
+
+                int rowsAffected = await _dapperConnection.QuerySingleAsync<int>(query, new { Id = id });
+
+                return rowsAffected > 0;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al eliminar logicamente form: {ex.Message}");
+                return false;
+            }
+        }
     }
 }

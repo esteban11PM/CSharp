@@ -179,6 +179,39 @@ namespace Business
             }
         }
 
+        /// <summary>
+        /// Elimina un FormModule de manera logica por ID
+        /// </summary>
+        public async Task<bool> DeleteFormModuleLogicalAsync(int id)
+        {
+            if (id <= 0)
+            {
+                throw new ValidationException("ID", "El ID del formModule debe ser mayor que cero.");
+            }
+
+            var existingUser = await _formModuleData.GetByIdAsync(id);
+            if (existingUser == null)
+            {
+                throw new EntityNotFoundException("FormModule", id);
+            }
+            try
+            {
+
+                return await _formModuleData.DeleteLogicAsyncSQL(id);
+
+            }
+            catch (ExternalServiceException ex)
+            {
+                _logger.LogError(ex, "Error en servicio externo al eliminar el formModule con ID: {FormModuleId}", id);
+                throw;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error al eliminar el formModule de manera logica con ID: {FormModuleId}", id);
+                throw new ExternalServiceException("Base de datos", "Error al eliminar el user de manera logica.", ex);
+            }
+        }
+
 
         /// <summary>
         /// Mapea un objeto FormModule a FormModuleDTO.
