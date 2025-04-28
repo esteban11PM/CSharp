@@ -1,0 +1,49 @@
+<h2>Formularios</h2>
+
+<button class="btn-register" mat-raised-button color="primary" routerLink="/form/create">
+    <mat-icon>add</mat-icon> Registrar Formulario
+</button>
+
+<mat-card>   
+  <mat-table [dataSource]="forms" class="mat-elevation-z8" *ngIf="forms.length">
+
+    <ng-container matColumnDef="id">
+        <mat-header-cell *matHeaderCellDef>N°</mat-header-cell>
+        <mat-cell *matCellDef="let form; let i = index">{{ i + 1 }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef>Nombre</mat-header-cell>
+        <mat-cell *matCellDef="let form">{{ form.name }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="description">
+        <mat-header-cell *matHeaderCellDef>Descripción</mat-header-cell>
+        <mat-cell *matCellDef="let form">{{ form.description }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="state">
+        <mat-header-cell *matHeaderCellDef>Estado</mat-header-cell>
+        <mat-cell *matCellDef="let form">{{ form.active ? 'Activo' : 'Inactivo' }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="acciones">
+        <mat-header-cell *matHeaderCellDef>Acciones</mat-header-cell>
+        <mat-cell *matCellDef="let form">
+            <a mat-icon-button [routerLink]="['/form/update', form.id]">
+                <mat-icon>edit</mat-icon>
+            </a>
+            <button mat-icon-button class="btn-delete" (click)="eliminarFormulario(form)">
+                <mat-icon>delete</mat-icon>
+            </button>
+        </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="columnas"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: columnas;"></mat-row>
+  </mat-table>
+
+  <div *ngIf="forms.length === 0" class="text-muted mt-4 text-center">
+    <p><i class="fa fa-hourglass"></i> No hay formularios registrados</p>
+  </div>
+</mat-card>

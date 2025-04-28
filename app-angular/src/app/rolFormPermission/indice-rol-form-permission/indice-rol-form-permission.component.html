@@ -1,0 +1,52 @@
+<h2>Relacion de Rol y Formularios con Permisos</h2>
+
+<button class="btn-register" mat-raised-button color="primary" routerLink="/rol-form-permission/create">
+    <mat-icon>add</mat-icon> Registrar Relación de Rol y Formulario con Permiso
+</button>
+
+<mat-card>
+    <mat-table [dataSource]="rolFormPermissions" class="mat-elevation-z8" *ngIf="rolFormPermissions.length">
+
+        <ng-container matColumnDef="id">
+            <mat-header-cell *matHeaderCellDef>N°</mat-header-cell>
+            <mat-cell *matCellDef="let rolFormPermission; let i = index">{{ i + 1 }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="rolename">
+            <mat-header-cell *matHeaderCellDef>Rol</mat-header-cell>
+            <mat-cell *matCellDef="let rolFormPermission">{{ rolFormPermission.roleName }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="pemissionname">
+            <mat-header-cell *matHeaderCellDef>Permiso</mat-header-cell>
+            <mat-cell *matCellDef="let rolFormPermission">{{ rolFormPermission.permissionName }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="formname">
+            <mat-header-cell *matHeaderCellDef>Formulario</mat-header-cell>
+            <mat-cell *matCellDef="let rolFormPermission">{{ rolFormPermission.formName }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="active">
+            <mat-header-cell *matHeaderCellDef>Estado</mat-header-cell>
+            <mat-cell *matCellDef="let rolFormPermission">{{ rolFormPermission.active ? 'Activo' : 'Inactivo'}}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="acciones">
+            <mat-header-cell *matHeaderCellDef>Acciones</mat-header-cell>
+            <mat-cell *matCellDef="let rolFormPermission">
+                <a mat-icon-button [routerLink]="['/rol-form-permission/update', rolFormPermission.id]">
+                    <mat-icon>edit</mat-icon>
+                </a>
+                <button mat-icon-button class="btn-delete" (click)="eliminarRolFormPermission(rolFormPermission)">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </mat-cell>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="columnas"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: columnas;"></mat-row>
+    </mat-table>
+    <div *ngIf="rolFormPermissions.length === 0" class="text-muted mt-4 text-center">
+        <p><i class="fa fa-hourglass"></i> No hay permisos de rol registrados</p>
+    </div>
+</mat-card>

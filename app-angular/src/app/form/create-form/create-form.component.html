@@ -1,0 +1,20 @@
+<h2 style="text-align: center;">Registrar Formulario</h2>
+
+<form [formGroup]="form" (ngSubmit)="submit()" class="formulario">
+
+  <mat-form-field appearance="outline" class="w-100">
+    <mat-label>Nombre del formulario</mat-label>
+    <input matInput formControlName="name">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="w-100">
+    <mat-label>Descripción</mat-label>
+    <textarea matInput formControlName="description" rows="3"></textarea>
+  </mat-form-field>
+
+  <div class="button-group">
+    <button mat-flat-button color="primary" type="submit">Registrar</button>
+    <button mat-raised-button color="warn" (click)="cancelar()" type="button">Cancelar</button>
+  </div>
+
+</form>

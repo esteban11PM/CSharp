@@ -1,0 +1,28 @@
+<h2 style="text-align: center;">Actualizar Permiso</h2>
+
+<form [formGroup]="form" (ngSubmit)="submit()" class="formulario">
+    <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Nombre del Permiso</mat-label>
+        <input matInput type="name" formControlName="name" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Descripción</mat-label>
+        <input matInput type="description" formControlName="description" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Estado</mat-label>
+        <mat-select formControlName="active">
+            <mat-option value="true">Activo</mat-option>
+            <mat-option value="false">Inactivo</mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <div class="button-group">
+        <button mat-flat-button type="submit">
+            Guardar Cambios
+        </button>
+        <button mat-raised-button (click)="cancelar()" type="button">Cancelar</button>
+    </div>
+</form>

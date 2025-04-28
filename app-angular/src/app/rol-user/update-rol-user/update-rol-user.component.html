@@ -1,0 +1,28 @@
+<h2 style="text-align: center;">Actualizar Rol-Usuario</h2>
+
+<form [formGroup]="form" (ngSubmit)="submit()" class="formulario">
+
+    <!-- Campo de Rol -->
+    <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Rol</mat-label>
+        <mat-select formControlName="roleId" required>
+            <mat-option *ngFor="let rol of roles" [value]="rol.id">{{ rol.name }}</mat-option>
+        </mat-select>
+    </mat-form-field>
+
+
+    <!-- Campo de Estado -->
+    <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Estado</mat-label>
+        <mat-select formControlName="active" required>
+            <mat-option [value]="true">Activo</mat-option>
+            <mat-option [value]="false">Inactivo</mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <!-- Botones -->
+    <div class="button-group">
+        <button mat-flat-button type="submit" [disabled]="form.invalid">Guardar Cambios</button>
+        <button mat-raised-button (click)="cancelar()" type="button">Cancelar</button>
+    </div>
+</form>

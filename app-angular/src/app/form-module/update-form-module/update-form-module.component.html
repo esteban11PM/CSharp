@@ -1,0 +1,30 @@
+<h2 style="text-align: center;">Actualiza el Formulario del Módulo</h2>
+
+<form [formGroup]="form" (ngSubmit)="submit()" class="formulario">
+    <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Formulario</mat-label>
+        <mat-select formControlName="formId">
+            <mat-option *ngFor="let form of forms" [value]="form.id">
+                {{ form.name }}
+            </mat-option>
+        </mat-select>
+        <mat-error *ngIf="form.get('formId')?.hasError('required')">Requerido</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Estado</mat-label>
+        <mat-select formControlName="active" required>
+            <mat-option [value]="true">Activo</mat-option>
+            <mat-option [value]="false">Inactivo</mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <div class="button-group">
+        <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">Actualizar</button>
+        <button mat-raised-button color="primary" type="button" (click)="cancelar()">Cancelar</button>
+    </div>
+</form>
+
+<div *ngIf="noFormModulesAvailable" class="text-muted mt-4 text-center">
+    <p><i class="fa fa-hourglass"></i> No hay formularios registrados</p>
+</div>

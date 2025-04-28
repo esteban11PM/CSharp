@@ -1,0 +1,49 @@
+<h2>Modules</h2>
+
+<button class="btn-register" mat-raised-button color="primary" routerLink="/module/create">
+    <mat-icon>add</mat-icon> Registrar Módulo
+</button>
+
+<mat-card>   
+  <mat-table [dataSource]="modulos" class="mat-elevation-z8" *ngIf="modulos.length">
+
+    <ng-container matColumnDef="id">
+        <mat-header-cell *matHeaderCellDef>N°</mat-header-cell>
+        <mat-cell *matCellDef="let module; let i = index">{{ i + 1 }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef>Nombre</mat-header-cell>
+        <mat-cell *matCellDef="let module">{{ module.name }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="description">
+        <mat-header-cell *matHeaderCellDef>Descripción</mat-header-cell>
+        <mat-cell *matCellDef="let module">{{ module.description }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="state">
+        <mat-header-cell *matHeaderCellDef>Estado</mat-header-cell>
+        <mat-cell *matCellDef="let module">{{ module.active ? 'Activo' : 'Inactivo' }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="acciones">
+        <mat-header-cell *matHeaderCellDef>Acciones</mat-header-cell>
+        <mat-cell *matCellDef="let module">
+            <a mat-icon-button [routerLink]="['/module/update', module.id]">
+                <mat-icon>edit</mat-icon>
+            </a>
+            <button mat-icon-button class="btn-delete" (click)="eliminarModulo(module)">
+                <mat-icon>delete</mat-icon>
+            </button>
+        </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="columnas"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: columnas;"></mat-row>
+  </mat-table>
+
+  <div *ngIf="modulos.length === 0" class="text-muted mt-4 text-center">
+    <p><i class="fa fa-hourglass"></i> No hay módulos registrados</p>
+  </div>
+</mat-card>

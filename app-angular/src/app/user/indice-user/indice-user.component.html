@@ -1,0 +1,52 @@
+<h2>Users</h2>
+
+
+<button class="btn-register" mat-raised-button color="primary" routerLink="/user/create">
+    <mat-icon>person_add</mat-icon> Registrar User
+</button>
+
+
+<mat-card>   
+    <mat-table [dataSource]="usuarios" class="mat-elevation-z8" *ngIf="usuarios.length">
+
+        <ng-container matColumnDef="id">
+            <mat-header-cell *matHeaderCellDef>N°</mat-header-cell>
+            <mat-cell *matCellDef="let user let i = index">{{ i + 1 }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="username">
+            <mat-header-cell *matHeaderCellDef>Username</mat-header-cell>
+            <mat-cell *matCellDef="let user">{{ user.username }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="password">
+            <mat-header-cell *matHeaderCellDef>Password</mat-header-cell>
+            <mat-cell *matCellDef="let user">{{ user.password }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="personName">
+            <mat-header-cell *matHeaderCellDef>Persona</mat-header-cell>
+            <mat-cell *matCellDef="let user">{{ user.personName }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="acciones">
+            <mat-header-cell *matHeaderCellDef>Acciones</mat-header-cell>
+            <mat-cell *matCellDef="let user">
+                
+                <a mat-icon-button [routerLink]="['/user/update', user.id]">
+                    <mat-icon>edit</mat-icon>
+                </a>
+                <button mat-icon-button class="btn-delete" (click)="eliminarUsuario(user)">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="columnas"></mat-header-row>
+        <mat-row *matRowDef="let row; let i = index; columns: columnas;"></mat-row>
+    </mat-table>
+
+    <div *ngIf="usuarios.length === 0" class="text-muted mt-4 text-center">
+        <p><i class="fa fa-hourglass"></i> No hay usuarios registrados</p>
+    </div>
+</mat-card>

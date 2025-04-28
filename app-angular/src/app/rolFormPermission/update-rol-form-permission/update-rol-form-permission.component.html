@@ -1,0 +1,26 @@
+<h2 style="text-align: center;">Actualizar Relación de Rol y Formulario con Permiso</h2>
+
+<form [formGroup]="form" (ngSubmit)="submit()" class="formulario">
+
+    <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Permiso</mat-label>
+        <mat-select formControlName="permissionId" required>
+            <mat-option *ngFor="let permiso of permissions" [value]="permiso.id">{{ permiso.name }}</mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Estado</mat-label>
+        <mat-select formControlName="active" required>
+            <mat-option [value]="true">Activo</mat-option>
+            <mat-option [value]="false">Inactivo</mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <div class="button-group">
+        <button mat-flat-button type="submit">
+            Guardar Cambios
+        </button>
+        <button mat-raised-button (click)="cancelar()" type="button">Cancelar</button>
+    </div>
+</form>

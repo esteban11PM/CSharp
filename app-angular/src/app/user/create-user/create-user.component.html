@@ -1,0 +1,30 @@
+<h2 style="text-align: center;">Registrar Usuario</h2>
+<form [formGroup]="form" (ngSubmit)="submit()" class="formulario">
+
+    <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Username</mat-label>
+        <input matInput formControlName="username">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Password</mat-label>
+        <input matInput type="password" formControlName="password">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Selecciona una persona</mat-label>
+        <mat-select formControlName="personId">
+          <mat-option *ngFor="let p of persons" [value]="p.id">
+            {{ p.name }}
+        </mat-option>
+        </mat-select>
+        <mat-hint *ngIf="noPersonsAvailable" class="text-danger">
+            No hay personas disponibles
+        </mat-hint>
+    </mat-form-field>
+
+    <div class="button-group">
+        <button mat-flat-button type="submit" [disabled]="noPersonsAvailable">Registrar</button>
+        <button mat-raised-button (click)="cancelar()" type="button">Cancelar</button>
+    </div>
+</form>

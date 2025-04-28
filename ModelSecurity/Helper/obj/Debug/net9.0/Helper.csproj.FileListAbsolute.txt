@@ -1,0 +1,12 @@
+/Users/estebanp11/SENA/SENA_2025/C#/ModelSecurity/Helper/bin/Debug/net9.0/Helper.deps.json
+/Users/estebanp11/SENA/SENA_2025/C#/ModelSecurity/Helper/bin/Debug/net9.0/Helper.dll
+/Users/estebanp11/SENA/SENA_2025/C#/ModelSecurity/Helper/bin/Debug/net9.0/Helper.pdb
+/Users/estebanp11/SENA/SENA_2025/C#/ModelSecurity/Helper/obj/Debug/net9.0/Helper.GeneratedMSBuildEditorConfig.editorconfig
+/Users/estebanp11/SENA/SENA_2025/C#/ModelSecurity/Helper/obj/Debug/net9.0/Helper.AssemblyInfoInputs.cache
+/Users/estebanp11/SENA/SENA_2025/C#/ModelSecurity/Helper/obj/Debug/net9.0/Helper.AssemblyInfo.cs
+/Users/estebanp11/SENA/SENA_2025/C#/ModelSecurity/Helper/obj/Debug/net9.0/Helper.csproj.CoreCompileInputs.cache
+/Users/estebanp11/SENA/SENA_2025/C#/ModelSecurity/Helper/obj/Debug/net9.0/Helper.sourcelink.json
+/Users/estebanp11/SENA/SENA_2025/C#/ModelSecurity/Helper/obj/Debug/net9.0/Helper.dll
+/Users/estebanp11/SENA/SENA_2025/C#/ModelSecurity/Helper/obj/Debug/net9.0/refint/Helper.dll
+/Users/estebanp11/SENA/SENA_2025/C#/ModelSecurity/Helper/obj/Debug/net9.0/Helper.pdb
+/Users/estebanp11/SENA/SENA_2025/C#/ModelSecurity/Helper/obj/Debug/net9.0/ref/Helper.dll

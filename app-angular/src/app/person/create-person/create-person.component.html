@@ -1,0 +1,64 @@
+<h2 style="text-align: center;">Registrar Persona</h2>
+
+<form [formGroup]="form" (ngSubmit)="submit()" class="formulario">
+
+    <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Nombre</mat-label>
+        <input matInput formControlName="name">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Apellido</mat-label>
+        <input matInput formControlName="lastName">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Tipo de documento</mat-label>
+        <mat-select formControlName="documentType">
+            <mat-option value="CC">Cédula de Ciudadanía</mat-option>
+            <mat-option value="TI">Tarjeta de Identidad</mat-option>
+            <mat-option value="RC">Registro Civil</mat-option>
+            <mat-option value="CE">Cédula de Extranjería</mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Número de documento</mat-label>
+        <input matInput formControlName="documentNumber" maxlength="10" (keypress)="onlyNumbers($event)">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Teléfono</mat-label>
+        <input matInput formControlName="phone" maxlength="10" (keypress)="onlyNumbers($event)">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Dirección</mat-label>
+        <input matInput formControlName="address">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Tipo de sangre</mat-label>
+        <mat-select formControlName="blodType">
+            <mat-option value="A+">A+</mat-option>
+            <mat-option value="A-">A-</mat-option>
+            <mat-option value="B+">B+</mat-option>
+            <mat-option value="B-">B-</mat-option>
+            <mat-option value="AB+">AB+</mat-option>
+            <mat-option value="AB-">AB-</mat-option>
+            <mat-option value="O+">O+</mat-option>
+            <mat-option value="O-">O-</mat-option>
+
+        </mat-select>
+    </mat-form-field>
+    <div class="button-group">
+        <button mat-flat-button color="primary" type="submit">Registrar</button>
+        <button mat-raised-button color="warn" (click)="cancelar()" type="button">Cancelar</button>
+    </div>
+
+</form>

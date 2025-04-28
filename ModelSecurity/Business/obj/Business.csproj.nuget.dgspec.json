@@ -1,0 +1,433 @@
+{
+  "format": 1,
+  "restore": {
+    "/Users/estebanp11/SENA/SENA_2025/CSharp/CRUD_SecurityModel/ModelSecurity/Business/Business.csproj": {}
+  },
+  "projects": {
+    "/Users/estebanp11/SENA/SENA_2025/CSharp/CRUD_SecurityModel/ModelSecurity/Business/Business.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/estebanp11/SENA/SENA_2025/CSharp/CRUD_SecurityModel/ModelSecurity/Business/Business.csproj",
+        "projectName": "Business",
+        "projectPath": "/Users/estebanp11/SENA/SENA_2025/CSharp/CRUD_SecurityModel/ModelSecurity/Business/Business.csproj",
+        "packagesPath": "/Users/estebanp11/.nuget/packages/",
+        "outputPath": "/Users/estebanp11/SENA/SENA_2025/CSharp/CRUD_SecurityModel/ModelSecurity/Business/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/estebanp11/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "/Users/estebanp11/SENA/SENA_2025/CSharp/CRUD_SecurityModel/ModelSecurity/Data/Data.csproj": {
+                "projectPath": "/Users/estebanp11/SENA/SENA_2025/CSharp/CRUD_SecurityModel/ModelSecurity/Data/Data.csproj"
+              },
+              "/Users/estebanp11/SENA/SENA_2025/CSharp/CRUD_SecurityModel/ModelSecurity/Helper/Helper.csproj": {
+                "projectPath": "/Users/estebanp11/SENA/SENA_2025/CSharp/CRUD_SecurityModel/ModelSecurity/Helper/Helper.csproj"
+              },
+              "/Users/estebanp11/SENA/SENA_2025/CSharp/CRUD_SecurityModel/ModelSecurity/Utilities/Utilities.csproj": {
+                "projectPath": "/Users/estebanp11/SENA/SENA_2025/CSharp/CRUD_SecurityModel/ModelSecurity/Utilities/Utilities.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.200"
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "AutoMapper": {
+              "target": "Package",
+              "version": "[12.0.1, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[8.0.13, 8.0.13]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[8.0.13, 8.0.13]"
+            }
+          ],
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/9.0.200/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/estebanp11/SENA/SENA_2025/CSharp/CRUD_SecurityModel/ModelSecurity/Data/Data.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/estebanp11/SENA/SENA_2025/CSharp/CRUD_SecurityModel/ModelSecurity/Data/Data.csproj",
+        "projectName": "Data",
+        "projectPath": "/Users/estebanp11/SENA/SENA_2025/CSharp/CRUD_SecurityModel/ModelSecurity/Data/Data.csproj",
+        "packagesPath": "/Users/estebanp11/.nuget/packages/",
+        "outputPath": "/Users/estebanp11/SENA/SENA_2025/CSharp/CRUD_SecurityModel/ModelSecurity/Data/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/estebanp11/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "/Users/estebanp11/SENA/SENA_2025/CSharp/CRUD_SecurityModel/ModelSecurity/Entity/Entity.csproj": {
+                "projectPath": "/Users/estebanp11/SENA/SENA_2025/CSharp/CRUD_SecurityModel/ModelSecurity/Entity/Entity.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.200"
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[8.0.13, 8.0.13]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[8.0.13, 8.0.13]"
+            }
+          ],
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/9.0.200/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/estebanp11/SENA/SENA_2025/CSharp/CRUD_SecurityModel/ModelSecurity/Entity/Entity.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/estebanp11/SENA/SENA_2025/CSharp/CRUD_SecurityModel/ModelSecurity/Entity/Entity.csproj",
+        "projectName": "Entity",
+        "projectPath": "/Users/estebanp11/SENA/SENA_2025/CSharp/CRUD_SecurityModel/ModelSecurity/Entity/Entity.csproj",
+        "packagesPath": "/Users/estebanp11/.nuget/packages/",
+        "outputPath": "/Users/estebanp11/SENA/SENA_2025/CSharp/CRUD_SecurityModel/ModelSecurity/Entity/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/estebanp11/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "/Users/estebanp11/SENA/SENA_2025/CSharp/CRUD_SecurityModel/ModelSecurity/Utilities/Utilities.csproj": {
+                "projectPath": "/Users/estebanp11/SENA/SENA_2025/CSharp/CRUD_SecurityModel/ModelSecurity/Utilities/Utilities.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.200"
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Dapper": {
+              "target": "Package",
+              "version": "[2.1.66, )"
+            },
+            "Microsoft.Data.SqlClient": {
+              "target": "Package",
+              "version": "[6.0.1, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[9.0.3, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[9.0.3, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[9.0.3, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[9.0.3, )"
+            },
+            "MySql.Data": {
+              "target": "Package",
+              "version": "[9.2.0, )"
+            },
+            "Npgsql": {
+              "target": "Package",
+              "version": "[9.0.3, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[9.0.4, )"
+            },
+            "Pomelo.EntityFrameworkCore.MySql": {
+              "target": "Package",
+              "version": "[9.0.0-preview.3.efcore.9.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[8.0.13, 8.0.13]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[8.0.13, 8.0.13]"
+            }
+          ],
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/9.0.200/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/estebanp11/SENA/SENA_2025/CSharp/CRUD_SecurityModel/ModelSecurity/Helper/Helper.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/estebanp11/SENA/SENA_2025/CSharp/CRUD_SecurityModel/ModelSecurity/Helper/Helper.csproj",
+        "projectName": "Helper",
+        "projectPath": "/Users/estebanp11/SENA/SENA_2025/CSharp/CRUD_SecurityModel/ModelSecurity/Helper/Helper.csproj",
+        "packagesPath": "/Users/estebanp11/.nuget/packages/",
+        "outputPath": "/Users/estebanp11/SENA/SENA_2025/CSharp/CRUD_SecurityModel/ModelSecurity/Helper/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/estebanp11/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "/Users/estebanp11/SENA/SENA_2025/CSharp/CRUD_SecurityModel/ModelSecurity/Entity/Entity.csproj": {
+                "projectPath": "/Users/estebanp11/SENA/SENA_2025/CSharp/CRUD_SecurityModel/ModelSecurity/Entity/Entity.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.200"
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "AutoMapper.Extensions.Microsoft.DependencyInjection": {
+              "target": "Package",
+              "version": "[12.0.1, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[8.0.13, 8.0.13]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[8.0.13, 8.0.13]"
+            }
+          ],
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/9.0.200/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/estebanp11/SENA/SENA_2025/CSharp/CRUD_SecurityModel/ModelSecurity/Utilities/Utilities.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/estebanp11/SENA/SENA_2025/CSharp/CRUD_SecurityModel/ModelSecurity/Utilities/Utilities.csproj",
+        "projectName": "Utilities",
+        "projectPath": "/Users/estebanp11/SENA/SENA_2025/CSharp/CRUD_SecurityModel/ModelSecurity/Utilities/Utilities.csproj",
+        "packagesPath": "/Users/estebanp11/.nuget/packages/",
+        "outputPath": "/Users/estebanp11/SENA/SENA_2025/CSharp/CRUD_SecurityModel/ModelSecurity/Utilities/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/estebanp11/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.200"
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[8.0.13, 8.0.13]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[8.0.13, 8.0.13]"
+            }
+          ],
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/9.0.200/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

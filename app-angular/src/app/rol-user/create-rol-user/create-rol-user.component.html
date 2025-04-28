@@ -1,0 +1,31 @@
+<h2 style="text-align: center;">Asigna un Rol a un Usuario</h2>
+
+<form [formGroup]="form" (ngSubmit)="submit()" class="formulario">
+
+    <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Selecciona el Usuario</mat-label>
+        <mat-select formControlName="userId">
+            <mat-option *ngFor="let u of users" [value]="u.id">
+                {{ u.username }}
+            </mat-option>
+        </mat-select>
+        <mat-hint *ngIf="noUsersAvailable" class="text-danger">
+            No hay usuarios disponibles
+        </mat-hint>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Selecciona el Rol</mat-label>
+        <mat-select formControlName="roleId">
+            <mat-option *ngFor="let r of roles" [value]="r.id">
+                {{ r.name }}
+            </mat-option>
+        </mat-select>
+        <mat-hint *ngIf="noRolesAvailable" class="text-danger">
+            No hay roles disponibles
+        </mat-hint>
+    </mat-form-field>
+
+    <div class="button-group">
+        <button mat-flat-button color="primary" type="submit">Registrar</button>
+        <button mat-raised-button color="warn" (click)="cancelar()" type="button">Cancelar</button>

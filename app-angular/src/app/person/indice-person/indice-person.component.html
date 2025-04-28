@@ -1,0 +1,79 @@
+<h2>Personas</h2>
+
+<button class="btn-register" mat-raised-button color="primary" routerLink="/person/create">
+    <mat-icon>add</mat-icon> Registrar Persona
+</button>
+
+<mat-card>   
+  <mat-table [dataSource]="personas" class="mat-elevation-z8" *ngIf="personas.length">
+
+    <ng-container matColumnDef="id">
+        <mat-header-cell *matHeaderCellDef>N°</mat-header-cell>
+        <mat-cell *matCellDef="let person; let i = index">{{ i + 1 }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef>Nombre</mat-header-cell>
+        <mat-cell *matCellDef="let person">{{ person.name }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="lastName">
+        <mat-header-cell *matHeaderCellDef>Apellido</mat-header-cell>
+        <mat-cell *matCellDef="let person">{{ person.lastName }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="email">
+        <mat-header-cell *matHeaderCellDef>Email</mat-header-cell>
+        <mat-cell *matCellDef="let person">{{ person.email }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="documentType">
+        <mat-header-cell *matHeaderCellDef>Tipo de documento</mat-header-cell>
+        <mat-cell *matCellDef="let person">{{ person.documentType }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="documentNumber">
+        <mat-header-cell *matHeaderCellDef>Número de documento</mat-header-cell>
+        <mat-cell *matCellDef="let person">{{ person.documentNumber }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="phone">
+        <mat-header-cell *matHeaderCellDef>Teléfono</mat-header-cell>
+        <mat-cell *matCellDef="let person">{{ person.phone }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="address">
+        <mat-header-cell *matHeaderCellDef>Dirección</mat-header-cell>
+        <mat-cell *matCellDef="let person">{{ person.address }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="blodType">
+        <mat-header-cell *matHeaderCellDef>Tipo de sangre</mat-header-cell>
+        <mat-cell *matCellDef="let person">{{ person.blodType }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="state">
+        <mat-header-cell *matHeaderCellDef>Estado</mat-header-cell>
+        <mat-cell *matCellDef="let person">{{ person.status ? 'Activo' : 'Inactivo' }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="acciones">
+        <mat-header-cell *matHeaderCellDef>Acciones</mat-header-cell>
+        <mat-cell *matCellDef="let person">
+            <a mat-icon-button [routerLink]="['/person/update', person.id]">
+                <mat-icon>edit</mat-icon>
+            </a>
+            <button mat-icon-button class="btn-delete" (click)="eliminarPersona(person)">
+                <mat-icon>delete</mat-icon>
+            </button>
+        </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="columnas"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: columnas;"></mat-row>
+  </mat-table>
+
+  <div *ngIf="personas.length === 0" class="text-muted mt-4 text-center">
+    <p><i class="fa fa-hourglass"></i> No hay personas registradas</p>
+  </div>
+</mat-card>

@@ -1,0 +1,107 @@
+-- Eliminamos las tablas para evitar errores de dependencias
+DROP TABLE IF EXISTS FormModule;
+DROP TABLE IF EXISTS RolFormPermission;
+DROP TABLE IF EXISTS Module;
+DROP TABLE IF EXISTS Form;
+DROP TABLE IF EXISTS Permission;
+DROP TABLE IF EXISTS RolUser;
+DROP TABLE IF EXISTS `User`;
+DROP TABLE IF EXISTS Rol;
+DROP TABLE IF EXISTS Person;
+
+-- Tabla Person
+CREATE TABLE Person (
+    Id INT NOT NULL AUTO_INCREMENT,
+    Name VARCHAR(30) NOT NULL,
+    LastName VARCHAR(30) NOT NULL,
+    Email VARCHAR(100) NOT NULL,
+    DocumentNumber VARCHAR(10) NOT NULL,
+    Phone VARCHAR(20) NOT NULL,
+    Address VARCHAR(100) NOT NULL,
+    DocumentType CHAR(3) NOT NULL,
+    BlodType CHAR(3) NOT NULL,
+    Active TINYINT(1) NOT NULL DEFAULT 1,
+    PRIMARY KEY (Id)
+) ENGINE=InnoDB;
+
+-- Tabla User vinculada con Person
+CREATE TABLE `User` (
+    Id INT NOT NULL AUTO_INCREMENT,
+    Username VARCHAR(50) NOT NULL,
+    Password VARCHAR(100) NOT NULL,
+    Active TINYINT(1) NOT NULL DEFAULT 1,
+    PersonId INT NOT NULL,
+    PRIMARY KEY (Id),
+    FOREIGN KEY (PersonId) REFERENCES Person(Id) ON DELETE CASCADE
+) ENGINE=InnoDB;
+
+-- Tabla Rol
+CREATE TABLE Rol (
+    Id INT NOT NULL AUTO_INCREMENT,
+    Name VARCHAR(50) NOT NULL,
+    Description VARCHAR(200) DEFAULT NULL,
+    Active TINYINT(1) NOT NULL DEFAULT 1,
+    PRIMARY KEY (Id)
+) ENGINE=InnoDB;
+
+-- Tabla pivote entre Rol y User
+CREATE TABLE RolUser (
+    Id INT NOT NULL AUTO_INCREMENT,
+    Active TINYINT(1) NOT NULL DEFAULT 1,
+    UserId INT NOT NULL,
+    RoleId INT NOT NULL,
+    PRIMARY KEY (Id),
+    FOREIGN KEY (UserId) REFERENCES `User`(Id) ON DELETE CASCADE,
+    FOREIGN KEY (RoleId) REFERENCES Rol(Id) ON DELETE CASCADE
+) ENGINE=InnoDB;
+
+-- Tabla Permission
+CREATE TABLE Permission (
+    Id INT NOT NULL AUTO_INCREMENT,
+    Name VARCHAR(50) NOT NULL,
+    Description VARCHAR(200) NOT NULL,
+    Active TINYINT(1) NOT NULL DEFAULT 1,
+    PRIMARY KEY (Id)
+) ENGINE=InnoDB;
+
+-- Tabla Form
+CREATE TABLE Form (
+    Id INT NOT NULL AUTO_INCREMENT,
+    Name VARCHAR(50) NOT NULL,
+    Description VARCHAR(200) NOT NULL,
+    Active TINYINT(1) NOT NULL DEFAULT 1,
+    PRIMARY KEY (Id)
+) ENGINE=InnoDB;
+
+-- Tabla Module
+CREATE TABLE Module (
+    Id INT NOT NULL AUTO_INCREMENT,
+    Name VARCHAR(50) NOT NULL,
+    Description VARCHAR(200) DEFAULT NULL,
+    Active TINYINT(1) NOT NULL DEFAULT 1,
+    PRIMARY KEY (Id)
+) ENGINE=InnoDB;
+
+-- Tabla pivote RolFormPermission
+CREATE TABLE RolFormPermission (
+    Id INT NOT NULL AUTO_INCREMENT,
+    Active TINYINT(1) NOT NULL DEFAULT 1,
+    RolId INT NOT NULL,
+    PermissionId INT NOT NULL,
+    FormId INT NOT NULL,
+    PRIMARY KEY (Id),
+    FOREIGN KEY (RolId) REFERENCES Rol(Id) ON DELETE CASCADE,
+    FOREIGN KEY (PermissionId) REFERENCES Permission(Id) ON DELETE CASCADE,
+    FOREIGN KEY (FormId) REFERENCES Form(Id) ON DELETE CASCADE
+) ENGINE=InnoDB;
+
+-- Tabla pivote FormModule
+CREATE TABLE FormModule (
+    Id INT NOT NULL AUTO_INCREMENT,
+    Active TINYINT(1) NOT NULL DEFAULT 1,
+    FormId INT NOT NULL,
+    ModuleId INT NOT NULL,
+    PRIMARY KEY (Id),
+    FOREIGN KEY (FormId) REFERENCES Form(Id) ON DELETE CASCADE,
+    FOREIGN KEY (ModuleId) REFERENCES Module(Id) ON DELETE CASCADE
+) ENGINE=InnoDB;

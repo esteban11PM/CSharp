@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "yoCbKekOwOA=",
+  "success": true,
+  "projectFilePath": "/Users/estebanp11/SENA/SENA_2025/CSharp/CRUD_SecurityModel/ModelSecurity/Utilities/Utilities.csproj",
+  "expectedPackageFiles": [
+    "/Users/estebanp11/.nuget/packages/microsoft.netcore.app.ref/8.0.13/microsoft.netcore.app.ref.8.0.13.nupkg.sha512",
+    "/Users/estebanp11/.nuget/packages/microsoft.aspnetcore.app.ref/8.0.13/microsoft.aspnetcore.app.ref.8.0.13.nupkg.sha512"
+  ],
+  "logs": []
+}

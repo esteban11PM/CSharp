@@ -1,0 +1,52 @@
+.formulario {
+    max-width: 650px;
+    margin: 50px auto;
+    padding: 35px;
+    background: linear-gradient(135deg, #e0f7fa, #f1f8e9);
+    border-radius: 25px;
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15);
+    animation: slideIn 0.5s ease;
+  }
+  
+  .w-100 {
+    width: 100%;
+    margin-bottom: 25px;
+  }
+  
+  .mat-form-field {
+    background-color: white;
+    border-radius: 10px;
+  }
+  
+  .button-group {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 25px;
+  }
+  
+  button[type="submit"] {
+    background-color: #1976d2;
+    color: white;
+    font-weight: bold;
+  }
+  
+  button[type="submit"]:hover {
+    background-color: #1565c0;
+  }
+  
+  button[type="button"] {
+    background-color: #757575;
+    color: white;
+    font-weight: bold;
+  }
+  
+  button[type="button"]:hover {
+    background-color: #616161;
+  }
+  
+  /* Animación de entrada */
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateX(-20px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+  

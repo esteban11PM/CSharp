@@ -1,0 +1,48 @@
+<h2>Form-Module</h2>
+
+<button class="btn-register" mat-raised-button color="primary" routerLink="/form-module/create">
+    <mat-icon>add</mat-icon> Registrar Form-Module
+</button>
+
+<mat-card>
+  <mat-table [dataSource]="formModules" class="mat-elevation-z8" *ngIf="formModules.length">
+
+    <ng-container matColumnDef="id">
+        <mat-header-cell *matHeaderCellDef>N°</mat-header-cell>
+        <mat-cell *matCellDef="let formModule; let i = index">{{ i + 1 }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="formname">
+        <mat-header-cell *matHeaderCellDef>Formulario</mat-header-cell>
+        <mat-cell *matCellDef="let formModule">{{ formModule.formName }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="modulename">
+        <mat-header-cell *matHeaderCellDef>Modulo</mat-header-cell>
+        <mat-cell *matCellDef="let formModule">{{ formModule.moduleName }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="active">
+        <mat-header-cell *matHeaderCellDef>Estado</mat-header-cell>
+        <mat-cell *matCellDef="let formModule">{{ formModule.active ? 'Activo' : 'Inactivo' }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="acciones">
+        <mat-header-cell *matHeaderCellDef>Acciones</mat-header-cell>
+        <mat-cell *matCellDef="let formModule">
+            <a mat-icon-button [routerLink]="['/form-module/update', formModule.id]">
+                <mat-icon>edit</mat-icon>
+            </a>
+            <button mat-icon-button class="btn-delete" (click)="eliminarFormModule(formModule)">
+                <mat-icon>delete</mat-icon>
+            </button>
+        </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="columnas"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: columnas;"></mat-row>
+  </mat-table>
+
+  <div *ngIf="formModules.length === 0" class="text-muted mt-4 text-center">
+    <p><i class="fa fa-hourglass"></i> No hay form-modules registrados</p>
+  </div>

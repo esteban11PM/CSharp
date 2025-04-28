@@ -1,0 +1,18 @@
+.btn-register{
+    margin-bottom: 1rem;
+    color: #000000;
+}
+
+.btn-register:hover{
+    color: #06D001;
+    text-decoration: underline;
+}
+
+a {
+    margin-right: 0.5rem;
+    color: #00224D;
+}
+
+.btn-delete{
+    color: red;
+}
