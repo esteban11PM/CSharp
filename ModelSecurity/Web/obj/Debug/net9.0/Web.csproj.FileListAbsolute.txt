@@ -425,6 +425,7 @@
 /Users/estebanp11/SENA/SENA_2025/CSharp/CRUD_SecurityModel/ModelSecurity/Web/bin/Debug/net9.0/K4os.Compression.LZ4.dll
 /Users/estebanp11/SENA/SENA_2025/CSharp/CRUD_SecurityModel/ModelSecurity/Web/bin/Debug/net9.0/K4os.Compression.LZ4.Streams.dll
 /Users/estebanp11/SENA/SENA_2025/CSharp/CRUD_SecurityModel/ModelSecurity/Web/bin/Debug/net9.0/K4os.Hash.xxHash.dll
+/Users/estebanp11/SENA/SENA_2025/CSharp/CRUD_SecurityModel/ModelSecurity/Web/bin/Debug/net9.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll
 /Users/estebanp11/SENA/SENA_2025/CSharp/CRUD_SecurityModel/ModelSecurity/Web/bin/Debug/net9.0/Microsoft.AspNetCore.OpenApi.dll
 /Users/estebanp11/SENA/SENA_2025/CSharp/CRUD_SecurityModel/ModelSecurity/Web/bin/Debug/net9.0/Microsoft.Bcl.AsyncInterfaces.dll
 /Users/estebanp11/SENA/SENA_2025/CSharp/CRUD_SecurityModel/ModelSecurity/Web/bin/Debug/net9.0/Microsoft.Bcl.Cryptography.dll

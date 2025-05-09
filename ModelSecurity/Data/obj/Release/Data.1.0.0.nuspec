@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>Data</id>
+    <version>1.0.0</version>
+    <authors>Data</authors>
+    <description>Package Description</description>
+    <repository type="git" commit="4458afdb3f7930466ef74ee7fe6d5721ff6391a9" />
+    <dependencies>
+      <group targetFramework="net8.0">
+        <dependency id="Entity" version="1.0.0" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="/Users/estebanp11/SENA/SENA_2025/CSharp/CRUD_SecurityModel/ModelSecurity/Data/bin/Release/net8.0/Data.dll" target="lib/net8.0/Data.dll" />
+  </files>
+</package>

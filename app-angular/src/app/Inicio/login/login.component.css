@@ -1,0 +1,150 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&display=swap'); */
+
+  .titulo {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 3rem;
+    color: #1D2B53;
+    text-align: center;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  }
+
+  .button-group {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+  }
+  
+
+  .registro-link {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 0.95rem;
+    color: #555;
+  }
+  
+  .registro-link a {
+    color: #1976d2;
+    font-weight: bold;
+    text-decoration: none;
+    cursor: pointer;
+    margin-left: 5px;
+    transition: color 0.3s;
+  }
+  
+  .registro-link a:hover {
+    color: #0d47a1;
+  }
+  
+.formulario-login {
+    max-width: 420px;
+    margin: 60px auto;
+    padding: 40px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    animation: slideFadeIn 0.6s ease-in-out;
+  }
+  
+  .w-100 {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  
+  .mat-form-field {
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+  }
+  
+  .button-group-login {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    margin-top: 25px;
+  }
+  
+  button[type="submit"] {
+    flex: 1;
+    background: linear-gradient(45deg, #2196f3, #21cbf3);
+    color: white;
+    font-weight: bold;
+    transition: background 0.3s ease;
+  }
+  
+  button[type="submit"]:hover {
+    background: linear-gradient(45deg, #1976d2, #00bcd4);
+  }
+  
+  button[type="button"] {
+    flex: 1;
+    background: linear-gradient(45deg, #f44336, #e57373);
+    color: white;
+    font-weight: bold;
+    transition: background 0.3s ease;
+  }
+  
+  button[type="button"]:hover {
+    background: linear-gradient(45deg, #d32f2f, #ef5350);
+  }
+  
+  /* Animación */
+  @keyframes slideFadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-15px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+
+  /* Capa opaca sobre todo */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* opacidad */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+  }
+  
+  /* Estilo del mensaje */
+  .mensaje-bienvenida {
+    animation: fadeInOut 3s ease-in-out;
+    font-family: 'Playfair Display', serif; /* Fuente elegante */
+    font-size: 4rem;
+    color: #ffffff;
+    text-align: center;
+    padding: 40px 60px;
+    border-radius: 20px;
+    /* background: linear-gradient(135deg, #00bcd4, #2196f3); */
+    /* box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4); */
+  }
+  
+  /* Animación elegante */
+  @keyframes fadeInOut {
+    0% {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+    20% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    80% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    100% {
+      opacity: 0;
+      transform: scale(1.1);
+    }
+  }
+  

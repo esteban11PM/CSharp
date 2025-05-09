@@ -1,0 +1,12 @@
+/Users/estebanp11/SENA/SENA_2025/CSharp/CRUD_SecurityModel/ModelSecurity/Utilities/bin/Release/net8.0/Utilities.deps.json
+/Users/estebanp11/SENA/SENA_2025/CSharp/CRUD_SecurityModel/ModelSecurity/Utilities/bin/Release/net8.0/Utilities.dll
+/Users/estebanp11/SENA/SENA_2025/CSharp/CRUD_SecurityModel/ModelSecurity/Utilities/bin/Release/net8.0/Utilities.pdb
+/Users/estebanp11/SENA/SENA_2025/CSharp/CRUD_SecurityModel/ModelSecurity/Utilities/obj/Release/net8.0/Utilities.GeneratedMSBuildEditorConfig.editorconfig
+/Users/estebanp11/SENA/SENA_2025/CSharp/CRUD_SecurityModel/ModelSecurity/Utilities/obj/Release/net8.0/Utilities.AssemblyInfoInputs.cache
+/Users/estebanp11/SENA/SENA_2025/CSharp/CRUD_SecurityModel/ModelSecurity/Utilities/obj/Release/net8.0/Utilities.AssemblyInfo.cs
+/Users/estebanp11/SENA/SENA_2025/CSharp/CRUD_SecurityModel/ModelSecurity/Utilities/obj/Release/net8.0/Utilities.csproj.CoreCompileInputs.cache
+/Users/estebanp11/SENA/SENA_2025/CSharp/CRUD_SecurityModel/ModelSecurity/Utilities/obj/Release/net8.0/Utilities.sourcelink.json
+/Users/estebanp11/SENA/SENA_2025/CSharp/CRUD_SecurityModel/ModelSecurity/Utilities/obj/Release/net8.0/Utilities.dll
+/Users/estebanp11/SENA/SENA_2025/CSharp/CRUD_SecurityModel/ModelSecurity/Utilities/obj/Release/net8.0/refint/Utilities.dll
+/Users/estebanp11/SENA/SENA_2025/CSharp/CRUD_SecurityModel/ModelSecurity/Utilities/obj/Release/net8.0/Utilities.pdb
+/Users/estebanp11/SENA/SENA_2025/CSharp/CRUD_SecurityModel/ModelSecurity/Utilities/obj/Release/net8.0/ref/Utilities.dll

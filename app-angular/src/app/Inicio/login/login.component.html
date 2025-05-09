@@ -1,0 +1,40 @@
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+
+<!-- <h2 style="text-align: center;" class="titulo">Inicio de Sesión</h2> -->
+
+<div *ngIf="mostrarBienvenida" class="overlay">
+    <div class="mensaje-bienvenida">
+        <p>¡Bienvenido!</p>
+    </div>
+</div>
+
+
+<form [formGroup]="form" (ngSubmit)="submit()" class="formulario-login">
+    <h2 class="titulo">Login</h2>
+    <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Usuario</mat-label>
+        <input matInput formControlName="username">
+        <mat-error *ngIf="form.get('username')?.hasError('required')">Requerido</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Contraseña</mat-label>
+        <input matInput type="password" formControlName="password">
+        <mat-error *ngIf="form.get('password')?.hasError('required')">Requerido</mat-error>
+    </mat-form-field>
+
+    <div class="button-group">
+        <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">Iniciar Sesión</button>
+    </div>
+    <div class="registro-link">
+        <span>¿No tienes un usuario?</span>
+        <a (click)="irARegistro()">Registrate</a>
+    </div>
+    <div *ngIf="errorMessage" class="text-muted mt-4 text-center">
+        <p><i class="fa fa-exclamation-triangle"></i> {{ errorMessage }}</p>
+    </div>
+</form>
+
+
+

@@ -2,6 +2,7 @@ using Business.Services;
 using Entity.Context;
 using Entity.DTOs;
 using Entity.Model;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Utilities.Exceptions;
@@ -26,6 +27,7 @@ namespace Web.Controllers
 
         // GET: api/Form
         [HttpGet]
+        [Authorize]
         [ProducesResponseType(typeof(IEnumerable<FormDTO>), 200)]
         [ProducesResponseType(500)]
         public async Task<IActionResult> GetAllForms()

@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>Business</id>
+    <version>1.0.0</version>
+    <authors>Business</authors>
+    <description>Package Description</description>
+    <repository type="git" commit="4458afdb3f7930466ef74ee7fe6d5721ff6391a9" />
+    <dependencies>
+      <group targetFramework="net8.0">
+        <dependency id="Data" version="1.0.0" exclude="Build,Analyzers" />
+        <dependency id="Helper" version="1.0.0" exclude="Build,Analyzers" />
+        <dependency id="Utilities" version="1.0.0" exclude="Build,Analyzers" />
+        <dependency id="AutoMapper" version="12.0.1" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="/Users/estebanp11/SENA/SENA_2025/CSharp/CRUD_SecurityModel/ModelSecurity/Business/bin/Release/net8.0/Business.dll" target="lib/net8.0/Business.dll" />
+  </files>
+</package>
